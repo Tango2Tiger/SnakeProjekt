@@ -24,7 +24,7 @@ public class Panel extends Application {
         Group root = new Group();
         Scene scene = new Scene(root);
         
-        stage.setTitle("Dette er vores stage");
+        stage.setTitle("This is our stage");
         stage.setHeight(550);
         stage.setWidth(750);
         stage.setResizable(false);
