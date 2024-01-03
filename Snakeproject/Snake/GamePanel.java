@@ -1,5 +1,3 @@
-package application;
-
 import java.util.Random;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -14,7 +12,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class GamePanel extends Application {
-
+    private GridPane grid;
 
     public static void main(String[] args) {
         launch(args);
@@ -22,11 +20,12 @@ public class GamePanel extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        grid = new GridPane();
         
         Group root = new Group();
         Scene scene = new Scene(root);
         
-        stage.setTitle("Snake");
+        stage.setTitle("SNAKE");
         stage.setHeight(550);
         stage.setWidth(750);
         stage.setResizable(false);
