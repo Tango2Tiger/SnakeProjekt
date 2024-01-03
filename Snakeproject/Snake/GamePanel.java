@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-public class Panel extends Application {
+public class GamePanel extends Application {
 
 
     public static void main(String[] args) {
