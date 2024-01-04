@@ -28,7 +28,7 @@ public class GamePanel extends Application {
         stage.setTitle("SNAKE");
         stage.setHeight(550);
         stage.setWidth(750);
-        stage.setResizable(false);
+        stage.setResizable(true);
 
         Text points = new Text();
         points.setText("Points:");
@@ -38,6 +38,7 @@ public class GamePanel extends Application {
         points.setFill(Color.LIMEGREEN);
         
         root.getChildren().add(points);
+        scene.setFill(Color.BLACK);
         stage.setScene(scene);
         stage.show();
     }
