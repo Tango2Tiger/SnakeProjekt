@@ -26,7 +26,7 @@ public class GamePanel extends Application {
         grid = new GridPane();
         
         Group root = new Group();
-        Scene scene = new Scene(grid);
+        Scene scene = new Scene(root);
         
         stage.setTitle("SNAKE");
         stage.setResizable(true);
@@ -40,6 +40,7 @@ public class GamePanel extends Application {
         points.setFont(Font.font("Roboto",25));
         points.setFill(Color.LIMEGREEN);
         
+        root.getChildren().add(grid);
         root.getChildren().add(points);
         scene.setFill(Color.WHITE);
         stage.setScene(scene);
