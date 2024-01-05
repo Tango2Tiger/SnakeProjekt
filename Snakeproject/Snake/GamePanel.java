@@ -13,9 +13,10 @@ import javafx.stage.Stage;
 
 public class GamePanel extends Application {
     private GridPane grid;
-    private static final int GRID_HEIGHT = 20;
-    private static final int GRID_WIDTH = 35;
-    private static final int TILE_SIZE = 25;
+    private Rectangle apple;
+    public static final int GRID_HEIGHT = 15;
+    public static final int GRID_WIDTH = 30;
+    public static final int TILE_SIZE = 60;
 
     public static void main(String[] args) {
         launch(args);
@@ -52,9 +53,29 @@ public class GamePanel extends Application {
                 Rectangle pane = new Rectangle(TILE_SIZE, TILE_SIZE);
                 pane.setFill(Color.BLUE);
                 pane.setStroke(Color.BLACK);
+                pane.setStrokeWidth(0.5);
                 grid.add(pane, row, col);
             }
         }
+        spawnApple();
     }
 
+    private Rectangle createApple(){
+        Rectangle apple = new Rectangle(TILE_SIZE, TILE_SIZE);
+        apple.setArcHeight(100);
+        apple.setArcWidth(100);
+        apple.setFill(Color.RED);
+        return apple;
+    }
+    private void spawnApple() {
+        Random random = new Random();
+        int appleX, appleY;
+
+        appleX = random.nextInt(GRID_WIDTH);
+        appleY = random.nextInt(GRID_HEIGHT);
+
+        apple = createApple();
+        grid.add(apple, appleX, appleY);
+
+    }
 }
