@@ -62,6 +62,8 @@ public class GamePanel extends Application {
 
     private Rectangle createApple(){
         Rectangle apple = new Rectangle(TILE_SIZE, TILE_SIZE);
+        apple.setArcHeight(100);
+        apple.setArcWidth(100);
         apple.setFill(Color.RED);
         return apple;
     }
