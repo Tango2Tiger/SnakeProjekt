@@ -15,7 +15,7 @@ public class GamePanel extends Application {
     private GridPane grid;
     private static final int GRID_HEIGHT = 15;
     private static final int GRID_WIDTH = 30;
-    private static final int TILE_SIZE = 25;
+    private static final int TILE_SIZE = 60;
 
     public static void main(String[] args) {
         launch(args);
