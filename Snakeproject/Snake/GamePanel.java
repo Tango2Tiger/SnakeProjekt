@@ -62,15 +62,15 @@ public class GamePanel extends Application {
 
     private Rectangle createApple(){
         Rectangle apple = new Rectangle(TILE_SIZE, TILE_SIZE);
-        apple.setFill(Color.RED);
+        
         return apple;
     }
     private void spawnApple() {
         Random random = new Random();
         int appleX, appleY;
 
-        appleX = random.nextInt(GRID_WIDTH-1);
-        appleY = random.nextInt(GRID_HEIGHT-1);
+        appleX = random.nextInt(GRID_WIDTH);
+        appleY = random.nextInt(GRID_HEIGHT);
 
         apple = createApple();
         grid.add(apple, appleX, appleY);
