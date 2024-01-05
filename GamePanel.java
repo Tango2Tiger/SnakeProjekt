@@ -17,7 +17,7 @@ public class GamePanel extends Application {
     private Rectangle apple;
     public static final int GRID_HEIGHT = 15;
     public static final int GRID_WIDTH = 30;
-    public static final int TILE_SIZE = 60;
+    public static final int TILE_SIZE = 30;
 
     public static void main(String[] args) {
         launch(args);
@@ -52,9 +52,9 @@ public class GamePanel extends Application {
         for(int row = 0; row<GRID_WIDTH; row++){
             for(int col = 0; col<GRID_HEIGHT; col++){
                 Rectangle pane = new Rectangle(TILE_SIZE, TILE_SIZE);
-                pane.setFill(Color.BLUE);
-                pane.setStroke(Color.BLACK);
-                pane.setStrokeWidth(0.5);
+                pane.setFill(Color.SEAGREEN);
+                pane.setStroke(Color.WHITE);
+                pane.setStrokeWidth(1.5);
                 grid.add(pane, row, col);
             }
         }
@@ -65,7 +65,7 @@ public class GamePanel extends Application {
         Rectangle apple = new Rectangle(TILE_SIZE-10, TILE_SIZE-10);
         apple.setArcHeight(80);
         apple.setArcWidth(40);
-        apple.setFill(Color.RED);
+        apple.setFill(Color.TOMATO);
         return apple;
     }
     private void spawnApple() {
