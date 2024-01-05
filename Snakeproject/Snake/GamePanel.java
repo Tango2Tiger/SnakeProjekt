@@ -13,9 +13,9 @@ import javafx.stage.Stage;
 
 public class GamePanel extends Application {
     private GridPane grid;
-    private static final int GRID_HEIGHT = 20;
-    private static final int GRID_WIDTH = 35;
-    private static final int TILE_SIZE = 25;
+    public static final int GRID_HEIGHT = 20;
+    public static final int GRID_WIDTH = 35;
+    public static final int TILE_SIZE = 25;
 
     public static void main(String[] args) {
         launch(args);
