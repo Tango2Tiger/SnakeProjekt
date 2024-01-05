@@ -13,6 +13,9 @@ import javafx.stage.Stage;
 
 public class GamePanel extends Application {
     private GridPane grid;
+    private static final int GRID_HEIGHT = 20;
+    private static final int GRID_WIDTH = 15;
+    private static final int TILE_SIZE = 25;
 
     public static void main(String[] args) {
         launch(args);
@@ -23,12 +26,12 @@ public class GamePanel extends Application {
         grid = new GridPane();
         
         Group root = new Group();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(grid);
         
         stage.setTitle("SNAKE");
-        stage.setHeight(550);
-        stage.setWidth(750);
         stage.setResizable(true);
+
+        createGrid();
 
         Text points = new Text();
         points.setText("Points:");
@@ -38,9 +41,19 @@ public class GamePanel extends Application {
         points.setFill(Color.LIMEGREEN);
         
         root.getChildren().add(points);
-        scene.setFill(Color.BLACK);
+        scene.setFill(Color.WHITE);
         stage.setScene(scene);
         stage.show();
+    }
+    private void  createGrid(){
+        for(int row = 0; row<GRID_WIDTH; row++){
+            for(int col = 0; col<GRID_HEIGHT; col++){
+                Rectangle pane = new Rectangle(TILE_SIZE, TILE_SIZE);
+                pane.setFill(Color.BLUE);
+                pane.setStroke(Color.BLACK);
+                grid.add(pane, col, row);
+            }
+        }
     }
 
 }
