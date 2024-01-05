@@ -16,7 +16,7 @@ public class GamePanel extends Application {
     private Rectangle apple;
     public static final int GRID_HEIGHT = 15;
     public static final int GRID_WIDTH = 30;
-    public static final int TILE_SIZE = 60;
+    public static final int TILE_SIZE = 20;
 
     public static void main(String[] args) {
         launch(args);
