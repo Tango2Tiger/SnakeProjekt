@@ -1,5 +1,8 @@
 import java.util.Random;
 import javafx.application.Application;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -61,9 +64,9 @@ public class GamePanel extends Application {
     }
 
     private Rectangle createApple(){
-        Rectangle apple = new Rectangle(TILE_SIZE, TILE_SIZE);
-        apple.setArcHeight(100);
-        apple.setArcWidth(100);
+        Rectangle apple = new Rectangle(TILE_SIZE-10, TILE_SIZE-10);
+        apple.setArcHeight(80);
+        apple.setArcWidth(40);
         apple.setFill(Color.RED);
         return apple;
     }
@@ -75,6 +78,8 @@ public class GamePanel extends Application {
         appleY = random.nextInt(GRID_HEIGHT);
 
         apple = createApple();
+        GridPane.setHalignment(apple, HPos.CENTER);
+        GridPane.setValignment(apple, VPos.CENTER);
         grid.add(apple, appleX, appleY);
 
     }
