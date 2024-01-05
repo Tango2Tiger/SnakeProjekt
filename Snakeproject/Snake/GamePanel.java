@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 public class GamePanel extends Application {
     private GridPane grid;
     private static final int GRID_HEIGHT = 20;
-    private static final int GRID_WIDTH = 15;
+    private static final int GRID_WIDTH = 35;
     private static final int TILE_SIZE = 25;
 
     public static void main(String[] args) {
@@ -52,7 +52,7 @@ public class GamePanel extends Application {
                 Rectangle pane = new Rectangle(TILE_SIZE, TILE_SIZE);
                 pane.setFill(Color.BLUE);
                 pane.setStroke(Color.BLACK);
-                grid.add(pane, col, row);
+                grid.add(pane, row, col);
             }
         }
     }

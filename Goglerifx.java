@@ -18,9 +18,7 @@ public class Goglerifx extends Application{
     @Override
     public void start(Stage primaryStage){
         primaryStage.setTitle("Snake Game");
-        //Stackpane root = new StackPane();
         Group root = new Group();
-        Stage stage = new Stage();
         Scene scene = new Scene(root, 600, 600);
 
         Rectangle rect = new Rectangle();
