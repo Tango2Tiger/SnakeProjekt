@@ -62,7 +62,7 @@ public class GamePanel extends Application {
 
     private Rectangle createApple(){
         Rectangle apple = new Rectangle(TILE_SIZE, TILE_SIZE);
-        
+        apple.setFill(Color.RED);
         return apple;
     }
     private void spawnApple() {

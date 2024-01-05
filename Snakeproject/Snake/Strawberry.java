@@ -21,5 +21,4 @@ public class Strawberry extends Application {
         root.getChildren().add(canvas);
         
     }
-    
 }
