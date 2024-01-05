@@ -52,6 +52,7 @@ public class GamePanel extends Application {
                 Rectangle pane = new Rectangle(TILE_SIZE, TILE_SIZE);
                 pane.setFill(Color.BLUE);
                 pane.setStroke(Color.BLACK);
+                pane.setStrokeWidth(0.5);
                 grid.add(pane, row, col);
             }
         }
