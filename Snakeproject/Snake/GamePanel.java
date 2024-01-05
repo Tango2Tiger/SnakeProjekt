@@ -71,8 +71,8 @@ public class GamePanel extends Application {
         Random random = new Random();
         int appleX, appleY;
 
-        appleX = random.nextInt(GRID_WIDTH-1);
-        appleY = random.nextInt(GRID_HEIGHT-1);
+        appleX = random.nextInt(GRID_WIDTH);
+        appleY = random.nextInt(GRID_HEIGHT);
 
         apple = createApple();
         grid.add(apple, appleX, appleY);
