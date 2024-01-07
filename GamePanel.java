@@ -13,7 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+import javafx.animation.*;
 
 public class GamePanel extends Application {
     private GridPane grid;
@@ -21,6 +21,7 @@ public class GamePanel extends Application {
     public static final int GRID_HEIGHT = 10;
     public static final int GRID_WIDTH = 20;
     public static final int TILE_SIZE = 30;
+    Snake snake = new Snake(GRID_WIDTH/2, GRID_HEIGHT/2);
 
     public static void main(String[] args) {
         launch(args);
@@ -51,6 +52,11 @@ public class GamePanel extends Application {
         scene.setFill(Color.WHITE);
         stage.setScene(scene);
         stage.show();
+
+        MyAnimationTimer animationTimer = new MyAnimationTimer();
+        animationTimer.start();
+
+
     }
     private void createGrid(){
         for(int row = 0; row<GRID_WIDTH; row++){
@@ -70,7 +76,6 @@ public class GamePanel extends Application {
     }
 
     public void createSnake(){
-        Snake snake = new Snake(GRID_WIDTH/2, GRID_HEIGHT/2);
         ArrayList<Rectangle> l = snake.getlist();
         int xrect = 0;
         int yrect = 0;
@@ -82,7 +87,22 @@ public class GamePanel extends Application {
             grid.add(l.get(i),xrect,yrect);
         }
     }
+    public class MyAnimationTimer extends AnimationTimer {
 
+        private long lastUpdateTime = 0;
+        private final long updateInterval = 300000000; // 1 sekund
+    
+        @Override
+        public void handle(long now) {
+            if (now - lastUpdateTime >= updateInterval) {
+                // Her skal vi opdateret slangen så den rykker.
+                System.out.println("Printing something...");
+    
+                // Update the last update time
+                lastUpdateTime = now;
+            }
+        }
+    }
 
     private Rectangle createApple(){
         Rectangle apple = new Rectangle(TILE_SIZE-5, TILE_SIZE-5);
