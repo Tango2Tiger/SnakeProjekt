@@ -76,7 +76,7 @@ public class GamePanel extends Application {
 
     public void createSnake(){
         
-        ArrayList<Rectangle> l = snake.getlist();
+        ArrayList<Rectangle> l = snake.segments;
         int xrect = 0;
         int yrect = 0;
 
