@@ -136,7 +136,6 @@ public class GamePanel extends Application {
         public void handle(long now) {
             if (now - lastUpdateTime >= updateInterval) {
                 // Her skal vi opdateret slangen så den rykker.
-                System.out.println("Printing something...");
                 snake.move();
                 System.out.println(snake.segments.get(0).getX());
                 // Update the last update time
