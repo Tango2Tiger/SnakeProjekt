@@ -21,6 +21,8 @@ public class Snake{
         tail.setX(x+1);
         tail.setY(y);
         segments.add(tail);
+        
+        this.direction = "RIGHT";
 
     }
 

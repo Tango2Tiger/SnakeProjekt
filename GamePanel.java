@@ -13,6 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.event.*;
 
 
 public class GamePanel extends Application {
@@ -21,6 +22,7 @@ public class GamePanel extends Application {
     public static final int GRID_HEIGHT = 10;
     public static final int GRID_WIDTH = 20;
     public static final int TILE_SIZE = 30;
+    public Snake snake = new Snake(GRID_WIDTH/2, GRID_HEIGHT/2);
 
     public static void main(String[] args) {
         launch(args);
@@ -51,6 +53,8 @@ public class GamePanel extends Application {
         scene.setFill(Color.WHITE);
         stage.setScene(scene);
         stage.show();
+
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKey);
     }
     private void createGrid(){
         for(int row = 0; row<GRID_WIDTH; row++){
@@ -65,12 +69,8 @@ public class GamePanel extends Application {
         spawnApple();
     }
 
-    private void handleKey(KeyEvent event){
-        
-    }
-
     public void createSnake(){
-        Snake snake = new Snake(GRID_WIDTH/2, GRID_HEIGHT/2);
+        
         ArrayList<Rectangle> l = snake.getlist();
         int xrect = 0;
         int yrect = 0;
@@ -103,5 +103,20 @@ public class GamePanel extends Application {
         GridPane.setValignment(apple, VPos.CENTER);
         grid.add(apple, appleX, appleY);
 
+    }
+
+        private void handleKey(KeyEvent event){
+        if(event.getCode() == KeyCode.UP && !snake.direction.equals("DOWN")){
+            snake.direction = "UP";
+        } else if(event.getCode() == KeyCode.DOWN && !snake.direction.equals("UP")){
+            snake.direction = "DOWN";
+            System.out.println("Down");
+        } else if(event.getCode() == KeyCode.RIGHT && !snake.direction.equals("LEFT")){
+            snake.direction = "RIGHT";
+        } else if(event.getCode() == KeyCode.LEFT && !snake.direction.equals("RIGHT")){
+            snake.direction = "LEFT";
+        } else{
+            return;
+        }
     }
 }
