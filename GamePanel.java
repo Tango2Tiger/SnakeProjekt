@@ -13,7 +13,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.animation.*;import javafx.event.*;
+import javafx.animation.*;
+import javafx.event.*;
 
 
 public class GamePanel extends Application {
@@ -76,7 +77,7 @@ public class GamePanel extends Application {
 
     public void createSnake(){
         
-        ArrayList<Rectangle> l = snake.getlist();
+        ArrayList<Rectangle> l = snake.segments;
         int xrect = 0;
         int yrect = 0;
 
