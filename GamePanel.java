@@ -13,7 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.event.*;
+import javafx.animation.*;import javafx.event.*;
 
 
 public class GamePanel extends Application {
@@ -22,7 +22,7 @@ public class GamePanel extends Application {
     public static final int GRID_HEIGHT = 10;
     public static final int GRID_WIDTH = 20;
     public static final int TILE_SIZE = 30;
-    public Snake snake = new Snake(GRID_WIDTH/2, GRID_HEIGHT/2);
+    Snake snake = new Snake(GRID_WIDTH/2, GRID_HEIGHT/2);
 
     public static void main(String[] args) {
         launch(args);
@@ -54,6 +54,11 @@ public class GamePanel extends Application {
         stage.setScene(scene);
         stage.show();
 
+        MyAnimationTimer animationTimer = new MyAnimationTimer();
+        animationTimer.start();
+
+
+
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKey);
     }
     private void createGrid(){
@@ -82,7 +87,22 @@ public class GamePanel extends Application {
             grid.add(l.get(i),xrect,yrect);
         }
     }
+    public class MyAnimationTimer extends AnimationTimer {
 
+        private long lastUpdateTime = 0;
+        private final long updateInterval = 300000000; // 1 sekund
+    
+        @Override
+        public void handle(long now) {
+            if (now - lastUpdateTime >= updateInterval) {
+                // Her skal vi opdateret slangen så den rykker.
+                System.out.println("Printing something...");
+    
+                // Update the last update time
+                lastUpdateTime = now;
+            }
+        }
+    }
 
     private Rectangle createApple(){
         Rectangle apple = new Rectangle(TILE_SIZE-5, TILE_SIZE-5);
