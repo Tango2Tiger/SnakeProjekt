@@ -17,21 +17,15 @@ public class Goglerifx extends Application{
 
     @Override
     public void start(Stage primaryStage){
-        primaryStage.setTitle("Snake Game");
+        primaryStage.setTitle("Gøgleri");
         Group root = new Group();
         Scene scene = new Scene(root, 600, 600);
 
-        Rectangle rect = new Rectangle();
-        Rectangle[] retcs = new Rectangle[10];
-        
-        for(int i = 0; i<10;i++){
-            rect.setX(i*10);
-            rect.setY(i*10);
-            rect.setWidth(40);
-            rect.setHeight(40);
-            rect.setFill(Color.AQUA);
-            
-        }
+        Rectangle rect = new Rectangle(10,10);
+        rect.setX(50);
+        rect.setY(50);
+        System.out.println(rect.getX());
+
         root.getChildren().add(rect);
         
         primaryStage.setScene(scene);

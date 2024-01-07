@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
@@ -12,11 +13,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+
 public class GamePanel extends Application {
     private GridPane grid;
     private Rectangle apple;
-    public static final int GRID_HEIGHT = 15;
-    public static final int GRID_WIDTH = 30;
+    public static final int GRID_HEIGHT = 10;
+    public static final int GRID_WIDTH = 20;
     public static final int TILE_SIZE = 30;
 
     public static void main(String[] args) {
@@ -34,6 +36,7 @@ public class GamePanel extends Application {
         stage.setResizable(true);
 
         createGrid();
+        createSnake();
 
         Text points = new Text();
         points.setText("Points:");
@@ -48,7 +51,7 @@ public class GamePanel extends Application {
         stage.setScene(scene);
         stage.show();
     }
-    private void  createGrid(){
+    private void createGrid(){
         for(int row = 0; row<GRID_WIDTH; row++){
             for(int col = 0; col<GRID_HEIGHT; col++){
                 Rectangle pane = new Rectangle(TILE_SIZE, TILE_SIZE);
@@ -60,6 +63,21 @@ public class GamePanel extends Application {
         }
         spawnApple();
     }
+
+    public void createSnake(){
+        Snake snake = new Snake(GRID_WIDTH/2, GRID_HEIGHT/2);
+        ArrayList<Rectangle> l = snake.getlist();
+        int xrect = 0;
+        int yrect = 0;
+
+        for(int i = 0; i < l.size(); i++){
+            xrect = (int)(l.get(i).getX());
+            yrect = (int)(l.get(i).getY());
+
+            grid.add(l.get(i),xrect,yrect);
+        }
+    }
+
 
     private Rectangle createApple(){
         Rectangle apple = new Rectangle(TILE_SIZE-10, TILE_SIZE-10);
