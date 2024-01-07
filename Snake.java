@@ -22,12 +22,44 @@ public class Snake{
         tail.setY(y);
         segments.add(tail);
         
-        this.direction = "RIGHT";
+        this.direction = "LEFT";
 
     }
 
     public ArrayList getlist(){
         return this.segments;
+    }
+
+    public void move(){
+        for(int i=segments.size()-1; i > 0; i--){
+            segments.set(i, segments.get(i-1));
+        }
+        int hovedX = (int) (segments.get(0).getX());
+        int hovedY = (int) (segments.get(0).getY());
+
+
+        switch (direction) {
+            case "UP":
+                hovedY ++;
+                break;
+
+            case "DOWN":
+                hovedY --;
+                break;
+
+            case "LEFT":
+                hovedX --;
+                break;
+
+            case "RIGHT":
+                hovedX ++;
+                break;
+        
+            default:
+                break;
+        }
+        segments.get(0).setX(hovedX);
+        segments.get(0).setY(hovedY);
     }
 
 
