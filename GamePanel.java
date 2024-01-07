@@ -6,6 +6,7 @@ import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -62,6 +63,10 @@ public class GamePanel extends Application {
             }
         }
         spawnApple();
+    }
+
+    private void handleKey(KeyEvent event){
+        
     }
 
     public void createSnake(){
