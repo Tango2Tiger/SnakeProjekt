@@ -90,14 +90,15 @@ public class GamePanel extends Application {
     public class MyAnimationTimer extends AnimationTimer {
 
         private long lastUpdateTime = 0;
-        private final long updateInterval = 300000000; // 1 sekund
+        private final long updateInterval = 300000000; // 0,3 sekund
     
         @Override
         public void handle(long now) {
             if (now - lastUpdateTime >= updateInterval) {
                 // Her skal vi opdateret slangen så den rykker.
                 System.out.println("Printing something...");
-    
+                snake.move();
+                System.out.println(snake.segments.get(0).getX());
                 // Update the last update time
                 lastUpdateTime = now;
             }
@@ -130,7 +131,6 @@ public class GamePanel extends Application {
             snake.direction = "UP";
         } else if(event.getCode() == KeyCode.DOWN && !snake.direction.equals("UP")){
             snake.direction = "DOWN";
-            System.out.println("Down");
         } else if(event.getCode() == KeyCode.RIGHT && !snake.direction.equals("LEFT")){
             snake.direction = "RIGHT";
         } else if(event.getCode() == KeyCode.LEFT && !snake.direction.equals("RIGHT")){

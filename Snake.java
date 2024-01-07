@@ -5,7 +5,7 @@ import javafx.scene.shape.Rectangle;
 
 
 public class Snake{
-    private ArrayList<Rectangle> segments;
+    public ArrayList<Rectangle> segments;
     public String direction;
 
     public Snake(int x, int y){
