@@ -169,19 +169,4 @@ public class GamePanel extends Application {
         }
     }
 
-    public class MyAnimationTimer extends AnimationTimer {
-        private long lastUpdateTime = 0;
-        private final long updateInterval = 300000000; // 0,3 sekund
-    
-        @Override
-        public void handle(long now) {
-            if (now - lastUpdateTime >= updateInterval) {
-                // Her skal vi opdateret slangen så den rykker.
-                snake.move();
-                System.out.println(snake.segments.get(0).getX());
-                // Update the last update time
-                lastUpdateTime = now;
-            }
-        }
-    }
 }
