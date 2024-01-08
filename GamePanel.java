@@ -24,6 +24,7 @@ public class GamePanel extends Application {
     public static final int TILE_SIZE = 30;
     Snake snake = new Snake(GRID_WIDTH/2, GRID_HEIGHT/2);
     public boolean isAlive = true;
+    public boolean ateApple = false;
 
     public static void main(String[] args) {
         launch(args);
@@ -117,7 +118,7 @@ public class GamePanel extends Application {
         apple.setFill(Color.TOMATO);
         return apple;
     }
-    private void spawnApple() {
+    public void spawnApple() {
         Random random = new Random();
         int appleX, appleY;
 
@@ -128,6 +129,7 @@ public class GamePanel extends Application {
         GridPane.setHalignment(apple, HPos.CENTER);
         GridPane.setValignment(apple, VPos.CENTER);
         grid.add(apple, appleX, appleY);
+        ateApple = false;
 
     }
 
@@ -156,8 +158,15 @@ public class GamePanel extends Application {
 
             if (headX == x && headY == y) {
                 isAlive = false;
-                //gameOver();
+                gameOver();
             }
+        }
+        
+        int appleX = GridPane.getColumnIndex(apple);
+        int appleY = GridPane.getRowIndex(apple);
+        if (headX == appleX && headY == appleY) {
+            ateApple = true; // changes boolean value to true which leaves a tail segment behind
+            eatApple();
         }
     }
 
