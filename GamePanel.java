@@ -35,14 +35,14 @@ public class GamePanel extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage primaryStage) throws Exception {
         grid = new GridPane();
         
         Group root = new Group();
         Scene scene = new Scene(root);
         
-        stage.setTitle("SNAKE");
-        stage.setResizable(true);
+        primaryStage.setTitle("SNAKE");
+        primaryStage.setResizable(true);
 
         createGrid();
         createSnake();
@@ -57,13 +57,50 @@ public class GamePanel extends Application {
         root.getChildren().add(grid);
         root.getChildren().add(points);
         scene.setFill(Color.WHITE);
-        stage.setScene(scene);
-        stage.show();
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
         MyAnimationTimer animationTimer = new MyAnimationTimer();
         animationTimer.start();
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKey);
+    }
+    private void showGameOver(Stage stage) {
+
+        Group root = new Group();
+        Scene scene = new Scene(root, GRID_HEIGHT, GRID_WIDTH);
+
+        stage.setTitle("Game Over");
+        stage.setResizable(true);
+
+        Text go = new Text();
+        go.setText("Game Over!");
+        go.setY(GRID_HEIGHT/3);
+        go.setX(GRID_WIDTH/3);
+        go.setFill(Color.RED);
+
+        Text pa = new Text();
+        pa.setText("Press ENTER to start a new game");
+        pa.setY(GRID_HEIGHT/2);
+        pa.setX(GRID_WIDTH/15);
+        pa.setFill(Color.WHITE);
+
+        root.getChildren().add(go);
+        root.getChildren().add(pa);
+        scene.setFill(Color.BLACK);
+        stage.setScene(scene);
+        stage.show();
+
+        scene.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                restartGame(stage);
+
+            }
+        });
+    }
+    private void restartGame(Stage stage) {
+        IsAlive = true;
+        start(stage);
     }
 
     private void createGrid(){
@@ -155,7 +192,7 @@ public class GamePanel extends Application {
         ateApple = false;
 
     }
-
+    //Putting barriers so the snake cannot go in the opposite way of what it is currently moving.
     private void handleKey(KeyEvent event){
         if(event.getCode() == KeyCode.UP && !snake.direction.equals("DOWN")){
             snake.direction = "UP";
