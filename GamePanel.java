@@ -117,7 +117,6 @@ public class GamePanel extends Application {
         public void handle(long now) {
             
              if(now - lastUpdateTime >= updateInterval) {
-                while(isAlive){
                 // Her skal vi opdateret slangen så den rykker.
                 System.out.println("Printing something...");
                 snake.move();
@@ -126,11 +125,10 @@ public class GamePanel extends Application {
                 // Update the last update time
                 lastUpdateTime = now;
                 }
-                return;
             }
         
         }
-    }
+    
 
     private Rectangle createApple(){
         Rectangle apple = new Rectangle(TILE_SIZE-5, TILE_SIZE-5);
