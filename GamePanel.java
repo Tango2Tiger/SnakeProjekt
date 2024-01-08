@@ -140,8 +140,6 @@ public class GamePanel extends Application {
         return apple;
     }
     public void spawnApple() {
-
-    private void spawnApple() {
         Random random = new Random();
         int appleX = random.nextInt(GRID_WIDTH);
         int appleY = random.nextInt(GRID_HEIGHT);
@@ -189,7 +187,7 @@ public class GamePanel extends Application {
 
             if (headX == x && headY == y) {
                 isAlive = false;
-                gameOver();
+                //gameOver();
             }
         }
         
