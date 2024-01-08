@@ -12,7 +12,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
+import javafx.animation.*;
+import javafx.event.*;
 import javafx.animation.*;
 import javafx.event.*;
 
@@ -67,7 +70,7 @@ public class GamePanel extends Application {
                 Rectangle pane = new Rectangle(TILE_SIZE, TILE_SIZE);
                 pane.setFill(Color.SEAGREEN);
                 pane.setStroke(Color.WHITE);
-                pane.setStrokeWidth(1.5);
+                pane.setStrokeWidth(1);
                 grid.add(pane, row, col);
             }
         }
@@ -83,8 +86,42 @@ public class GamePanel extends Application {
         for(int i = 0; i < l.size(); i++){
             xrect = (int)(l.get(i).getX());
             yrect = (int)(l.get(i).getY());
+            Rectangle rect = l.get(i);
+            grid.add(rect,xrect,yrect);
+        }
+    }
 
-            grid.add(l.get(i),xrect,yrect);
+    public void drawSnake(){
+        ArrayList<Rectangle> l = snake.segments;
+        String dir = snake.direction;
+
+        int headX = grid.getColumnIndex(l.get(0));
+        int headY = grid.getRowIndex(l.get(0));
+
+        Rectangle head = l.get(0);
+        
+        //grid.add(l.get(0),headX,headY);
+        //grid.getChildren().set(0, l.get(0));
+        System.out.println(grid.getChildren());
+    }
+
+
+    public class MyAnimationTimer extends AnimationTimer {
+
+        private long lastUpdateTime = 0;
+        private final long updateInterval = 300000000; // 0,3 sekund
+    
+        @Override
+        public void handle(long now) {
+            if (now - lastUpdateTime >= updateInterval) {
+                // Her skal vi opdateret slangen så den rykker.
+                System.out.println("Printing something...");
+                snake.move();
+                drawSnake();
+                System.out.println(snake.segments.get(0).getX());
+                // Update the last update time
+                lastUpdateTime = now;
+            }
         }
     }
 
@@ -117,12 +154,16 @@ public class GamePanel extends Application {
     private void handleKey(KeyEvent event){
         if(event.getCode() == KeyCode.UP && !snake.direction.equals("DOWN")){
             snake.direction = "UP";
+            grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0)), grid.getRowIndex(snake.segments.get(0))-1);
         } else if(event.getCode() == KeyCode.DOWN && !snake.direction.equals("UP")){
             snake.direction = "DOWN";
+            grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0)), grid.getRowIndex(snake.segments.get(0))+1);
         } else if(event.getCode() == KeyCode.RIGHT && !snake.direction.equals("LEFT")){
             snake.direction = "RIGHT";
+            grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0))+1, grid.getRowIndex(snake.segments.get(0)));
         } else if(event.getCode() == KeyCode.LEFT && !snake.direction.equals("RIGHT")){
             snake.direction = "LEFT";
+            grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0))-1, grid.getRowIndex(snake.segments.get(0)));
         } else{
             return;
         }
