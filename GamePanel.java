@@ -69,7 +69,7 @@ public class GamePanel extends Application {
                 Rectangle pane = new Rectangle(TILE_SIZE, TILE_SIZE);
                 pane.setFill(Color.SEAGREEN);
                 pane.setStroke(Color.WHITE);
-                pane.setStrokeWidth(1.5);
+                pane.setStrokeWidth(1);
                 grid.add(pane, row, col);
             }
         }
@@ -148,13 +148,16 @@ public class GamePanel extends Application {
         private void handleKey(KeyEvent event){
         if(event.getCode() == KeyCode.UP && !snake.direction.equals("DOWN")){
             snake.direction = "UP";
-            snake.segments.get(0).setTranslateY(snake.segments.get(0).getY()-TILE_SIZE);
+            grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0)), grid.getRowIndex(snake.segments.get(0))-1);
         } else if(event.getCode() == KeyCode.DOWN && !snake.direction.equals("UP")){
             snake.direction = "DOWN";
+            grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0)), grid.getRowIndex(snake.segments.get(0))+1);
         } else if(event.getCode() == KeyCode.RIGHT && !snake.direction.equals("LEFT")){
             snake.direction = "RIGHT";
+            grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0))+1, grid.getRowIndex(snake.segments.get(0)));
         } else if(event.getCode() == KeyCode.LEFT && !snake.direction.equals("RIGHT")){
             snake.direction = "LEFT";
+            grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0))-1, grid.getRowIndex(snake.segments.get(0)));
         } else{
             return;
         }
