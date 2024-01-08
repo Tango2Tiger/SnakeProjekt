@@ -12,8 +12,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
-import javafx.animation.*;import javafx.event.*;
+import javafx.animation.*;
+import javafx.event.*;
 
 
 public class GamePanel extends Application {
@@ -76,17 +78,33 @@ public class GamePanel extends Application {
 
     public void createSnake(){
         
-        ArrayList<Rectangle> l = snake.getlist();
+        ArrayList<Rectangle> l = snake.segments;
         int xrect = 0;
         int yrect = 0;
 
         for(int i = 0; i < l.size(); i++){
             xrect = (int)(l.get(i).getX());
             yrect = (int)(l.get(i).getY());
-
-            grid.add(l.get(i),xrect,yrect);
+            Rectangle rect = l.get(i);
+            grid.add(rect,xrect,yrect);
         }
     }
+
+    public void drawSnake(){
+        ArrayList<Rectangle> l = snake.segments;
+        String dir = snake.direction;
+
+        int headX = grid.getColumnIndex(l.get(0));
+        int headY = grid.getRowIndex(l.get(0));
+
+        Rectangle head = l.get(0);
+        
+        //grid.add(l.get(0),headX,headY);
+        //grid.getChildren().set(0, l.get(0));
+        System.out.println(grid.getChildren());
+    }
+
+
     public class MyAnimationTimer extends AnimationTimer {
 
         private long lastUpdateTime = 0;
@@ -98,6 +116,7 @@ public class GamePanel extends Application {
                 // Her skal vi opdateret slangen så den rykker.
                 System.out.println("Printing something...");
                 snake.move();
+                drawSnake();
                 System.out.println(snake.segments.get(0).getX());
                 // Update the last update time
                 lastUpdateTime = now;
@@ -129,6 +148,7 @@ public class GamePanel extends Application {
         private void handleKey(KeyEvent event){
         if(event.getCode() == KeyCode.UP && !snake.direction.equals("DOWN")){
             snake.direction = "UP";
+            snake.segments.get(0).setTranslateY(snake.segments.get(0).getY()-TILE_SIZE);
         } else if(event.getCode() == KeyCode.DOWN && !snake.direction.equals("UP")){
             snake.direction = "DOWN";
         } else if(event.getCode() == KeyCode.RIGHT && !snake.direction.equals("LEFT")){
