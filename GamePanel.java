@@ -156,7 +156,7 @@ public class GamePanel extends Application {
              if(now - lastUpdateTime >= updateInterval) {
                 // Her skal vi opdateret slangen så den rykker.
                 System.out.println("Printing something...");
-                snake.move();
+                move();
                 //drawSnake();
                 System.out.println(snake.segments.get(0).getX());
                 // Update the last update time
@@ -166,6 +166,32 @@ public class GamePanel extends Application {
         
         }
     
+
+    public void move(){
+        snake.segments.add(1, snake.tail);
+        grid.setConstraints(snake.segments.get(1), grid.getColumnIndex(snake.segments.get(0)), grid.getRowIndex(snake.segments.get(0)));
+
+        switch (snake.direction) {
+            case "UP":
+                grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0)), grid.getRowIndex(snake.segments.get(0))-1);
+                break;
+
+            case "DOWN":
+                grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0)), grid.getRowIndex(snake.segments.get(0))+1);
+                break;
+
+            case "LEFT":
+                grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0))-1, grid.getRowIndex(snake.segments.get(0)));
+                break;
+
+            case "RIGHT":
+                grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0))+1, grid.getRowIndex(snake.segments.get(0)));
+                break;
+        
+            default:
+                break;
+        }
+    }
 
     private Rectangle createApple(){
         Rectangle apple = new Rectangle(TILE_SIZE-5, TILE_SIZE-5);
@@ -196,16 +222,16 @@ public class GamePanel extends Application {
     private void handleKey(KeyEvent event){
         if(event.getCode() == KeyCode.UP && !snake.direction.equals("DOWN")){
             snake.direction = "UP";
-            grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0)), grid.getRowIndex(snake.segments.get(0))-1);
+            
         } else if(event.getCode() == KeyCode.DOWN && !snake.direction.equals("UP")){
             snake.direction = "DOWN";
-            grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0)), grid.getRowIndex(snake.segments.get(0))+1);
+            
         } else if(event.getCode() == KeyCode.RIGHT && !snake.direction.equals("LEFT")){
             snake.direction = "RIGHT";
-            grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0))+1, grid.getRowIndex(snake.segments.get(0)));
+            
         } else if(event.getCode() == KeyCode.LEFT && !snake.direction.equals("RIGHT")){
             snake.direction = "LEFT";
-            grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0))-1, grid.getRowIndex(snake.segments.get(0)));
+            
         } else{
             return;
         }
