@@ -27,6 +27,8 @@ public class GamePanel extends Application {
     public static final int GRID_WIDTH = 20;
     public static final int TILE_SIZE = 30;
     Snake snake = new Snake(GRID_WIDTH/2, GRID_HEIGHT/2);
+    public boolean isAlive = true;
+    public boolean ateApple = false;
 
     public static void main(String[] args) {
         launch(args);
@@ -113,7 +115,9 @@ public class GamePanel extends Application {
     
         @Override
         public void handle(long now) {
-            if (now - lastUpdateTime >= updateInterval) {
+            
+             if(now - lastUpdateTime >= updateInterval) {
+                while(isAlive){
                 // Her skal vi opdateret slangen så den rykker.
                 System.out.println("Printing something...");
                 snake.move();
@@ -121,7 +125,10 @@ public class GamePanel extends Application {
                 System.out.println(snake.segments.get(0).getX());
                 // Update the last update time
                 lastUpdateTime = now;
+                }
+                return;
             }
+        
         }
     }
 
@@ -132,6 +139,7 @@ public class GamePanel extends Application {
         apple.setFill(Color.TOMATO);
         return apple;
     }
+    public void spawnApple() {
 
     private void spawnApple() {
         Random random = new Random();
@@ -148,7 +156,8 @@ public class GamePanel extends Application {
         GridPane.setHalignment(apple, HPos.CENTER);
         GridPane.setValignment(apple, VPos.CENTER);
         grid.add(apple, appleX, appleY);
-    
+        ateApple = false;
+
     }
 
     private void handleKey(KeyEvent event){
@@ -168,5 +177,35 @@ public class GamePanel extends Application {
             return;
         }
     }
+    private void checkCollision() {
+        int headX = GridPane.getColumnIndex(snake.segments.get(0));
+        int headY = GridPane.getRowIndex(snake.segments.get(0));
 
+        // Check collision with itself
+        for (int i = 1; i < snake.segments.size(); i++) {
+            Rectangle position = snake.segments.get(i);
+            int x = GridPane.getColumnIndex(position);
+            int y = GridPane.getRowIndex(position);
+
+            if (headX == x && headY == y) {
+                isAlive = false;
+                gameOver();
+            }
+        }
+        
+        int appleX = GridPane.getColumnIndex(apple);
+        int appleY = GridPane.getRowIndex(apple);
+        if (headX == appleX && headY == appleY) {
+            ateApple = true; // changes boolean value to true which leaves a tail segment behind
+            eatApple();
+        }
+    }
+
+    private void eatApple() {
+        grid.getChildren().remove(apple); // Remove apple from the grid
+    
+        spawnApple(); // spawn a new apple 
+    }
 }
+
+
