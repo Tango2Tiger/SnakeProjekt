@@ -23,6 +23,7 @@ public class GamePanel extends Application {
     public static final int GRID_WIDTH = 20;
     public static final int TILE_SIZE = 30;
     Snake snake = new Snake(GRID_WIDTH/2, GRID_HEIGHT/2);
+    public boolean isAlive = true;
 
     public static void main(String[] args) {
         launch(args);
@@ -94,13 +95,18 @@ public class GamePanel extends Application {
     
         @Override
         public void handle(long now) {
-            if (now - lastUpdateTime >= updateInterval) {
+            
+             if(now - lastUpdateTime >= updateInterval) {
+                while(isAlive){
                 // Her skal vi opdateret slangen så den rykker.
                 snake.move();
                 System.out.println(snake.segments.get(0).getX());
                 // Update the last update time
                 lastUpdateTime = now;
+                }
+                return;
             }
+        
         }
     }
 
@@ -138,4 +144,28 @@ public class GamePanel extends Application {
             return;
         }
     }
+    private void checkCollision() {
+        int headX = GridPane.getColumnIndex(snake.segments.get(0));
+        int headY = GridPane.getRowIndex(snake.segments.get(0));
+
+        // Check collision with itself
+        for (int i = 1; i < snake.segments.size(); i++) {
+            Rectangle position = snake.segments.get(i);
+            int x = GridPane.getColumnIndex(position);
+            int y = GridPane.getRowIndex(position);
+
+            if (headX == x && headY == y) {
+                isAlive = false;
+                //gameOver();
+            }
+        }
+    }
+
+    private void eatApple() {
+        grid.getChildren().remove(apple); // Remove apple from the grid
+    
+        spawnApple(); // spawn a new apple 
+    }
 }
+
+
