@@ -102,7 +102,7 @@ public class GamePanel extends Application {
         
         //grid.add(l.get(0),headX,headY);
         //grid.getChildren().set(0, l.get(0));
-        System.out.println(grid.getChildren());
+        //System.out.println(grid.getChildren());
     }
 
 
@@ -117,7 +117,7 @@ public class GamePanel extends Application {
                 // Her skal vi opdateret slangen så den rykker.
                 System.out.println("Printing something...");
                 snake.move();
-                drawSnake();
+                //drawSnake();
                 System.out.println(snake.segments.get(0).getX());
                 // Update the last update time
                 lastUpdateTime = now;
