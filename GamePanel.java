@@ -93,13 +93,18 @@ public class GamePanel extends Application {
 
         scene.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                restartGame(stage);
+                try {
+                    restartGame(stage);
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
 
             }
         });
     }
-    private void restartGame(Stage stage) {
-        IsAlive = true;
+    private void restartGame(Stage stage) throws Exception {
+        isAlive = true;
         start(stage);
     }
 
