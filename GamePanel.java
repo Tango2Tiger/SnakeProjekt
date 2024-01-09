@@ -143,21 +143,6 @@ public class GamePanel extends Application {
         }
     }
 
-    public void drawSnake(){
-        ArrayList<Rectangle> l = snake.segments;
-        String dir = snake.direction;
-
-        int headX = grid.getColumnIndex(l.get(0));
-        int headY = grid.getRowIndex(l.get(0));
-
-        Rectangle head = l.get(0);
-        
-        //grid.add(l.get(0),headX,headY);
-        //grid.getChildren().set(0, l.get(0));
-        //System.out.println(grid.getChildren());
-    }
-
-
     public class MyAnimationTimer extends AnimationTimer {
 
         private long lastUpdateTime = 0;
@@ -275,10 +260,10 @@ public class GamePanel extends Application {
         //Collision with borders. 
         switch (headX) {
             case 0:
-                grid.setConstraints(snake.segments.get(0), GRID_WIDTH, grid.getRowIndex(snake.segments.get(0)));
+                GridPane.setConstraints(snake.segments.get(0), GRID_WIDTH, GridPane.getRowIndex(snake.segments.get(0)));
                 break;
             case GRID_WIDTH+1:
-                grid.setConstraints(snake.segments.get(0), 0, grid.getRowIndex(snake.segments.get(0)));
+                GridPane.setConstraints(snake.segments.get(0), 0, GridPane.getRowIndex(snake.segments.get(0)));
                 break;
 
             default:
@@ -286,10 +271,10 @@ public class GamePanel extends Application {
         }
         switch (headY) {
             case 0:
-                grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0)), GRID_HEIGHT);
+                GridPane.setConstraints(snake.segments.get(0), GridPane.getColumnIndex(snake.segments.get(0)), GRID_HEIGHT);
                 break;
             case GRID_HEIGHT+1:
-                grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0)), 0);
+                GridPane.setConstraints(snake.segments.get(0), GridPane.getColumnIndex(snake.segments.get(0)), 0);
                 break;
 
             default:
