@@ -98,10 +98,11 @@ public class GamePanel extends Application {
         }
     }
 
+
     public class MyAnimationTimer extends AnimationTimer {
 
         private long lastUpdateTime = 0;
-        private final long updateInterval = 200000000; // 0,3 sekund
+        private final long updateInterval = 100000000; // 0,1 sekund
     
         @Override
         public void handle(long now) {
@@ -119,15 +120,10 @@ public class GamePanel extends Application {
     
 
     public void move(){
-        for (int i = snake.segments.size() - 1; i > 0; i--) {
-            // Update each body segment's position to the position of the segment in front of it
-            Rectangle currentSegment = snake.segments.get(i);
-            Rectangle nextSegment = snake.segments.get(i - 1);
-            GridPane.setConstraints(currentSegment, GridPane.getColumnIndex(nextSegment), GridPane.getRowIndex(nextSegment));
-        }
-        /* snake.segments.add(1, snake.tail);
-        GridPane.setConstraints(snake.segments.get(1), GridPane.getColumnIndex(snake.segments.get(0)), GridPane.getRowIndex(snake.segments.get(0)));
- */
+        GridPane.setConstraints(snake.segments.get(snake.segments.size()-1), GridPane.getColumnIndex(snake.segments.get(0)), GridPane.getRowIndex(snake.segments.get(0)));
+        snake.segments.add(1, snake.segments.get(snake.segments.size()-1));
+        snake.segments.remove(snake.segments.size()-1);
+        
         switch (snake.direction) {
             case "UP":
                 GridPane.setConstraints(snake.segments.get(0), GridPane.getColumnIndex(snake.segments.get(0)), GridPane.getRowIndex(snake.segments.get(0))-1);
