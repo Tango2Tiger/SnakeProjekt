@@ -54,11 +54,11 @@ public class GamePanel extends Application {
         createSnake();
 
         
-        points.setText("Points:" + scoreCounter);
-        points.setX(100);
+        points.setText("POINTS:" + scoreCounter);
+        points.setX(10);
         points.setY(25);
-        points.setFont(Font.font("Roboto",25));
-        points.setFill(Color.VIOLET);
+        points.setFont(Font.font("Roboto",30));
+        points.setFill(Color.CORNFLOWERBLUE);
         
         root.getChildren().add(grid);
         root.getChildren().add(points);
