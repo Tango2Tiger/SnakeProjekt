@@ -23,9 +23,9 @@ import javafx.animation.*;
 public class GamePanel extends Application {
     public GridPane grid;
     private Rectangle apple;
-    public static final int GRID_HEIGHT = 20;
-    public static final int GRID_WIDTH = 20;
-    public static final int TILE_SIZE = 20;
+    public static final int GRID_HEIGHT = 17;
+    public static final int GRID_WIDTH = 17;
+    public static final int TILE_SIZE = 30;
     Snake snake = new Snake(GRID_WIDTH/2, GRID_HEIGHT/2);
     public boolean isAlive = true;
     public boolean ateApple = false;
@@ -55,10 +55,10 @@ public class GamePanel extends Application {
 
         
         points.setText("Points:" + scoreCounter);
-        points.setX(10);
+        points.setX(100);
         points.setY(25);
         points.setFont(Font.font("Roboto",25));
-        points.setFill(Color.LIMEGREEN);
+        points.setFill(Color.VIOLET);
         
         root.getChildren().add(grid);
         root.getChildren().add(points);
@@ -76,9 +76,9 @@ public class GamePanel extends Application {
         for(int row = 0; row<GRID_WIDTH; row++){
             for(int col = 0; col<GRID_HEIGHT; col++){
                 Rectangle pane = new Rectangle(TILE_SIZE, TILE_SIZE);
-                pane.setFill(Color.SEAGREEN);
-                pane.setStroke(Color.WHITE);
-                pane.setStrokeWidth(1);
+                pane.setFill(Color.WHITESMOKE);
+                pane.setStroke(Color.BLACK);
+                pane.setStrokeWidth(0.75);
                 grid.add(pane, row, col);
             }
         }
