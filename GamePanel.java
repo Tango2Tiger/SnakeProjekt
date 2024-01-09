@@ -72,51 +72,6 @@ public class GamePanel extends Application {
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKey);
     }
 
-
-    private void showGameOver(Stage stage) {
-
-        Group root = new Group();
-        Scene scene = new Scene(root, GRID_HEIGHT, GRID_WIDTH);
-
-        stage.setTitle("Game Over");
-        stage.setResizable(true);
-
-        Text go = new Text();
-        go.setText("Game Over!");
-        go.setY(GRID_HEIGHT/3);
-        go.setX(GRID_WIDTH/3);
-        go.setFill(Color.RED);
-
-        Text pa = new Text();
-        pa.setText("Press ENTER to start a new game");
-        pa.setY(GRID_HEIGHT/2);
-        pa.setX(GRID_WIDTH/15);
-        pa.setFill(Color.WHITE);
-
-        root.getChildren().add(go);
-        root.getChildren().add(pa);
-        scene.setFill(Color.BLACK);
-        stage.setScene(scene);
-        stage.show();
-
-        scene.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                try {
-                    restartGame(stage);
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-            }
-        });
-    }
-
-    private void restartGame(Stage stage) throws Exception {
-        isAlive = true;
-        start(stage);
-    }
-
     private void createGrid(){
         for(int row = 0; row<GRID_WIDTH; row++){
             for(int col = 0; col<GRID_HEIGHT; col++){
