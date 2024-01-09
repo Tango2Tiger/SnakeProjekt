@@ -139,7 +139,7 @@ public class GamePanel extends Application {
             // Update each body segment's position to the position of the segment in front of it
             Rectangle currentSegment = snake.segments.get(i);
             Rectangle nextSegment = snake.segments.get(i - 1);
-            grid.setConstraints(currentSegment, grid.getColumnIndex(nextSegment), grid.getRowIndex(nextSegment));
+            GridPane.setConstraints(currentSegment, GridPane.getColumnIndex(nextSegment), GridPane.getRowIndex(nextSegment));
         }
         snake.segments.add(1, snake.tail);
         GridPane.setConstraints(snake.segments.get(1), GridPane.getColumnIndex(snake.segments.get(0)), GridPane.getRowIndex(snake.segments.get(0)));
