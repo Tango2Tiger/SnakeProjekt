@@ -31,5 +31,13 @@ public class Snake{
         this.direction = "LEFT";
     }
 
+    public void add1(){
+        Rectangle extra = new Rectangle(GamePanel.TILE_SIZE,GamePanel.TILE_SIZE);
+        extra.setFill(Color.LIMEGREEN);
+        extra.setX(10);
+        extra.setY(10);
+        segments.add(1, extra);
+    }
+
 
 }

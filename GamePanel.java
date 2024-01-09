@@ -32,6 +32,7 @@ public class GamePanel extends Application {
     public MyAnimationTimer animationTimer;
     public int score_counter;
     Text points = new Text();
+    Stage stage;
 
     public static void main(String[] args) {
         launch(args);
@@ -40,6 +41,7 @@ public class GamePanel extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         grid = new GridPane();
+        stage = primaryStage;
         
         Group root = new Group();
         Scene scene = new Scene(root);
@@ -176,8 +178,9 @@ public class GamePanel extends Application {
     
 
     public void move(){
-        snake.segments.add(1, snake.segments.get(snake.segments.size()-1));
+        snake.add1();
         grid.setConstraints(snake.segments.get(1), grid.getColumnIndex(snake.segments.get(0)), grid.getRowIndex(snake.segments.get(0)));
+        grid.add(snake.segments.get(1), grid.getColumnIndex(snake.segments.get(1)), grid.getRowIndex(snake.segments.get(1)));
 
         switch (snake.direction) {
             case "UP":
@@ -263,7 +266,9 @@ public class GamePanel extends Application {
                 //gameOver();
             }
         }
-
+        
+        int zeroXCounter = 0;
+        int zeroYCounter = 0;
         //Collision with borders. 
         switch (headX) {
             case 0:
@@ -296,6 +301,11 @@ public class GamePanel extends Application {
             score_counter++;
             points.setText("Points:" + score_counter);
             spawnApple();
+        } else{
+            snake.segments.remove(snake.segments.size()-1);
+            for (Rectangle a : snake.segments) {
+                grid.add(a, grid.getColumnIndex(a), grid.getRowIndex(a));
+            }
         }
     }
 
