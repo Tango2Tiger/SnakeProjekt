@@ -23,12 +23,15 @@ import javafx.event.*;
 public class GamePanel extends Application {
     private GridPane grid;
     private Rectangle apple;
-    public static final int GRID_HEIGHT = 15;
+    public static final int GRID_HEIGHT = 20;
     public static final int GRID_WIDTH = 20;
-    public static final int TILE_SIZE = 30;
+    public static final int TILE_SIZE = 20;
     Snake snake = new Snake(GRID_WIDTH/2, GRID_HEIGHT/2);
     public boolean isAlive = true;
     public boolean ateApple = false;
+    public MyAnimationTimer animationTimer;
+    public int score_counter;
+    Text points = new Text();
 
     public static void main(String[] args) {
         launch(args);
@@ -47,8 +50,8 @@ public class GamePanel extends Application {
         createGrid();
         createSnake();
 
-        Text points = new Text();
-        points.setText("Points:");
+        
+        points.setText("Points:" + score_counter);
         points.setX(10);
         points.setY(25);
         points.setFont(Font.font("Roboto",25));
@@ -60,11 +63,13 @@ public class GamePanel extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        MyAnimationTimer animationTimer = new MyAnimationTimer();
+        animationTimer = new MyAnimationTimer();
         animationTimer.start();
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKey);
     }
+
+
     private void showGameOver(Stage stage) {
 
         Group root = new Group();
@@ -103,6 +108,7 @@ public class GamePanel extends Application {
             }
         });
     }
+
     private void restartGame(Stage stage) throws Exception {
         isAlive = true;
         start(stage);
@@ -122,7 +128,6 @@ public class GamePanel extends Application {
     }
 
     public void createSnake(){
-        
         ArrayList<Rectangle> l = snake.segments;
         int xrect = 0;
         int yrect = 0;
@@ -153,7 +158,7 @@ public class GamePanel extends Application {
     public class MyAnimationTimer extends AnimationTimer {
 
         private long lastUpdateTime = 0;
-        private final long updateInterval = 300000000; // 0,3 sekund
+        private final long updateInterval = 200000000; // 0,3 sekund
     
         @Override
         public void handle(long now) {
@@ -162,8 +167,6 @@ public class GamePanel extends Application {
                 // Her skal vi opdateret slangen så den rykker.
                 move();
                 checkCollision();
-                //drawSnake();
-                System.out.println(snake.segments.get(0).getX());
                 // Update the last update time
                 lastUpdateTime = now;
                 }
@@ -173,7 +176,7 @@ public class GamePanel extends Application {
     
 
     public void move(){
-        snake.segments.add(1, snake.tail);
+        snake.segments.add(1, snake.segments.get(snake.segments.size()-1));
         grid.setConstraints(snake.segments.get(1), grid.getColumnIndex(snake.segments.get(0)), grid.getRowIndex(snake.segments.get(0)));
 
         switch (snake.direction) {
@@ -205,6 +208,7 @@ public class GamePanel extends Application {
         apple.setFill(Color.TOMATO);
         return apple;
     }
+
     public void spawnApple() {
         Random random = new Random();
         int appleX = random.nextInt(GRID_WIDTH);
@@ -223,6 +227,7 @@ public class GamePanel extends Application {
         ateApple = false;
 
     }
+
     //Putting barriers so the snake cannot go in the opposite way of what it is currently moving.
     private void handleKey(KeyEvent event){
         if(event.getCode() == KeyCode.UP && !snake.direction.equals("DOWN")){
@@ -241,11 +246,12 @@ public class GamePanel extends Application {
             return;
         }
     }
+
     private void checkCollision() {
         int headX = GridPane.getColumnIndex(snake.segments.get(0));
         int headY = GridPane.getRowIndex(snake.segments.get(0));
 
-        // Check collision with itself
+        // Check collision with itself     
         for (int i = 1; i < snake.segments.size(); i++) {
             Rectangle position = snake.segments.get(i);
             int x = GridPane.getColumnIndex(position);
@@ -253,23 +259,46 @@ public class GamePanel extends Application {
 
             if (headX == x && headY == y) {
                 isAlive = false;
+                animationTimer.stop();
                 //gameOver();
             }
+        }
+
+        //Collision with borders. 
+        switch (headX) {
+            case 0:
+                grid.setConstraints(snake.segments.get(0), GRID_WIDTH, grid.getRowIndex(snake.segments.get(0)));
+                break;
+            case GRID_WIDTH+1:
+                grid.setConstraints(snake.segments.get(0), 0, grid.getRowIndex(snake.segments.get(0)));
+                break;
+
+            default:
+                break;
+        }
+        switch (headY) {
+            case 0:
+                grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0)), GRID_HEIGHT);
+                break;
+            case GRID_HEIGHT+1:
+                grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0)), 0);
+                break;
+
+            default:
+                break;
         }
         
         int appleX = GridPane.getColumnIndex(apple);
         int appleY = GridPane.getRowIndex(apple);
         if (headX == appleX && headY == appleY) {
             ateApple = true; // changes boolean value to true which leaves a tail segment behind
-            eatApple();
+            grid.getChildren().remove(apple);
+            score_counter++;
+            points.setText("Points:" + score_counter);
+            spawnApple();
         }
     }
 
-    private void eatApple() {
-        grid.getChildren().remove(apple); // Remove apple from the grid
-    
-        spawnApple(); // spawn a new apple 
-    }
 }
 
 
