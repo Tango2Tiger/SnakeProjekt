@@ -36,7 +36,7 @@ public class Snake{
         extra.setFill(Color.LIMEGREEN);
         extra.setX(10);
         extra.setY(10);
-        segments.add(1, extra);
+        segments.add(segments.size(), extra);
     }
 
 

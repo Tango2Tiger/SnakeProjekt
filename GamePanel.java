@@ -21,7 +21,7 @@ import javafx.event.*;
 
 
 public class GamePanel extends Application {
-    private GridPane grid;
+    public GridPane grid;
     private Rectangle apple;
     public static final int GRID_HEIGHT = 20;
     public static final int GRID_WIDTH = 20;
@@ -178,7 +178,6 @@ public class GamePanel extends Application {
     
 
     public void move(){
-        snake.add1();
         grid.setConstraints(snake.segments.get(1), grid.getColumnIndex(snake.segments.get(0)), grid.getRowIndex(snake.segments.get(0)));
         grid.add(snake.segments.get(1), grid.getColumnIndex(snake.segments.get(1)), grid.getRowIndex(snake.segments.get(1)));
 
@@ -296,17 +295,16 @@ public class GamePanel extends Application {
         int appleX = GridPane.getColumnIndex(apple);
         int appleY = GridPane.getRowIndex(apple);
         if (headX == appleX && headY == appleY) {
+            snake.add1();
+            grid.setConstraints(snake.segments.get(snake.segments.size()-1), grid.getColumnIndex(snake.segments.get(0)), grid.getRowIndex(snake.segments.get(0)));
             ateApple = true; // changes boolean value to true which leaves a tail segment behind
             grid.getChildren().remove(apple);
             score_counter++;
             points.setText("Points:" + score_counter);
             spawnApple();
-        } else{
+        } /* else{
             snake.segments.remove(snake.segments.size()-1);
-            for (Rectangle a : snake.segments) {
-                grid.add(a, grid.getColumnIndex(a), grid.getRowIndex(a));
-            }
-        }
+        } */
     }
 
 }
