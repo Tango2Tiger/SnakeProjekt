@@ -29,7 +29,11 @@ public class GamePanel extends Application {
     Snake snake = new Snake(GRID_WIDTH/2, GRID_HEIGHT/2);
     public boolean isAlive = true;
     public boolean ateApple = false;
-
+    public int scoreCounter = 0;
+    Text points = new Text();
+    MyAnimationTimer animationTimer = new MyAnimationTimer();
+    public int segmentSize = snake.segments.size();
+    
     public static void main(String[] args) {
         launch(args);
     }
@@ -47,8 +51,8 @@ public class GamePanel extends Application {
         createGrid();
         createSnake();
 
-        Text points = new Text();
-        points.setText("Points:");
+        
+        points.setText("Points:"+scoreCounter);
         points.setX(10);
         points.setY(25);
         points.setFont(Font.font("Roboto",25));
@@ -60,52 +64,10 @@ public class GamePanel extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        MyAnimationTimer animationTimer = new MyAnimationTimer();
+        
         animationTimer.start();
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKey);
-    }
-    private void showGameOver(Stage stage) {
-
-        Group root = new Group();
-        Scene scene = new Scene(root, GRID_HEIGHT, GRID_WIDTH);
-
-        stage.setTitle("Game Over");
-        stage.setResizable(true);
-
-        Text go = new Text();
-        go.setText("Game Over!");
-        go.setY(GRID_HEIGHT/3);
-        go.setX(GRID_WIDTH/3);
-        go.setFill(Color.RED);
-
-        Text pa = new Text();
-        pa.setText("Press ENTER to start a new game");
-        pa.setY(GRID_HEIGHT/2);
-        pa.setX(GRID_WIDTH/15);
-        pa.setFill(Color.WHITE);
-
-        root.getChildren().add(go);
-        root.getChildren().add(pa);
-        scene.setFill(Color.BLACK);
-        stage.setScene(scene);
-        stage.show();
-
-        scene.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                try {
-                    restartGame(stage);
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-            }
-        });
-    }
-    private void restartGame(Stage stage) throws Exception {
-        isAlive = true;
-        start(stage);
     }
 
     private void createGrid(){
@@ -173,24 +135,30 @@ public class GamePanel extends Application {
     
 
     public void move(){
+        for (int i = snake.segments.size() - 1; i > 0; i--) {
+            // Update each body segment's position to the position of the segment in front of it
+            Rectangle currentSegment = snake.segments.get(i);
+            Rectangle nextSegment = snake.segments.get(i - 1);
+            grid.setConstraints(currentSegment, grid.getColumnIndex(nextSegment), grid.getRowIndex(nextSegment));
+        }
         snake.segments.add(1, snake.tail);
-        grid.setConstraints(snake.segments.get(1), grid.getColumnIndex(snake.segments.get(0)), grid.getRowIndex(snake.segments.get(0)));
+        GridPane.setConstraints(snake.segments.get(1), GridPane.getColumnIndex(snake.segments.get(0)), GridPane.getRowIndex(snake.segments.get(0)));
 
         switch (snake.direction) {
             case "UP":
-                grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0)), grid.getRowIndex(snake.segments.get(0))-1);
+                GridPane.setConstraints(snake.segments.get(0), GridPane.getColumnIndex(snake.segments.get(0)), GridPane.getRowIndex(snake.segments.get(0))-1);
                 break;
 
             case "DOWN":
-                grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0)), grid.getRowIndex(snake.segments.get(0))+1);
+                GridPane.setConstraints(snake.segments.get(0), GridPane.getColumnIndex(snake.segments.get(0)), GridPane.getRowIndex(snake.segments.get(0))+1);
                 break;
 
             case "LEFT":
-                grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0))-1, grid.getRowIndex(snake.segments.get(0)));
+                GridPane.setConstraints(snake.segments.get(0), GridPane.getColumnIndex(snake.segments.get(0))-1, GridPane.getRowIndex(snake.segments.get(0)));
                 break;
 
             case "RIGHT":
-                grid.setConstraints(snake.segments.get(0), grid.getColumnIndex(snake.segments.get(0))+1, grid.getRowIndex(snake.segments.get(0)));
+                GridPane.setConstraints(snake.segments.get(0), GridPane.getColumnIndex(snake.segments.get(0))+1, GridPane.getRowIndex(snake.segments.get(0)));
                 break;
         
             default:
@@ -262,13 +230,21 @@ public class GamePanel extends Application {
         if (headX == appleX && headY == appleY) {
             ateApple = true; // changes boolean value to true which leaves a tail segment behind
             eatApple();
+            scoreCounter++;
         }
     }
 
     private void eatApple() {
         grid.getChildren().remove(apple); // Remove apple from the grid
+        Rectangle body = new Rectangle(TILE_SIZE, TILE_SIZE);
+        body.setFill(Color.LIMEGREEN);
+        
+        snake.segments.add(body);
+
+        grid.add(body, GridPane.getColumnIndex(snake.segments.get(segmentSize - 1)), GridPane.getRowIndex(snake.segments.get(segmentSize - 1)));
     
         spawnApple(); // spawn a new apple 
+        segmentSize = snake.segments.size();
     }
 }
 
