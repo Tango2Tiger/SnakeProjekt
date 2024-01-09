@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import javafx.animation.*;
 import javafx.event.*;
 import javafx.animation.*;
-import javafx.event.*;
+
 
 
 public class GamePanel extends Application {
@@ -115,7 +115,7 @@ public class GamePanel extends Application {
     public class MyAnimationTimer extends AnimationTimer {
 
         private long lastUpdateTime = 0;
-        private final long updateInterval = 300000000; // 0,3 sekund
+        private final long updateInterval = 1000000000; // 0,3 sekund
     
         @Override
         public void handle(long now) {
