@@ -22,9 +22,21 @@ public class Snake{
         tail.setX(x+1);
         tail.setY(y);
         segments.add(tail);
+        Rectangle rect = new Rectangle(GamePanel.TILE_SIZE,GamePanel.TILE_SIZE);
+        rect.setX(x+2);
+        rect.setY(y);
+        rect.setFill(Color.LIMEGREEN);
+        segments.add(rect);
         
         this.direction = "LEFT";
+    }
 
+    public void add1(){
+        Rectangle extra = new Rectangle(GamePanel.TILE_SIZE,GamePanel.TILE_SIZE);
+        extra.setFill(Color.LIMEGREEN);
+        extra.setX(10);
+        extra.setY(10);
+        segments.add(segments.size(), extra);
     }
 
 
