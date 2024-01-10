@@ -159,16 +159,21 @@ public class GamePanel extends Application {
         int appleX = random.nextInt(GRID_WIDTH);
         int appleY = random.nextInt(GRID_HEIGHT);
 
-        //The apple dosent spawn on to snake.
-        for(Rectangle a: snake.segments){
-            if(appleX == a.getX() && appleY == a.getY()){
-                    spawnApple();
-            }
-        }
         apple = createApple();
         GridPane.setHalignment(apple, HPos.CENTER);
         GridPane.setValignment(apple, VPos.CENTER);
         grid.add(apple, appleX, appleY);
+
+        //The apple dosent spawn on to snake.
+        for(Rectangle a: snake.segments){
+            if(grid.getColumnIndex(apple) == grid.getColumnIndex(a) && grid.getRowIndex(apple) == grid.getRowIndex(a)){
+                grid.getChildren().remove(apple);
+                //System.out.println(grid.getColumnIndex(apple) +" and " + grid.getColumnIndex(apple) + "Same coordinate");
+                spawnApple();
+            }
+        }
+       
+       System.out.println("lala");
         ateApple = false;
 
     }
