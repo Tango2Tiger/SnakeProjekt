@@ -12,30 +12,36 @@ import javafx.event.EventHandler;
 import javafx.application.*;
 
 public class MainMenu extends Application{
+    public static int grid_size = 15;
+    /* public static GamePanel game = new GamePanel(); */
+    public static Leaderbord leaders = new Leaderbord();
+    public static Speed setSpeed = new Speed();
+    public static GridSize gridSize = new GridSize();
+    public static MainMenu menu = new MainMenu();
     public static long speed = 200000000;
-    public static int gridSize = 15;
-    public static GamePanel game = new GamePanel();
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception{
+        
         Group root = new Group();
         Scene scene = new Scene(root);
-        stage.setScene(scene);
+        
         stage.setTitle("Snake");
 
         Rectangle rect = new Rectangle(800, 600);
         Font font = Font.font(40);
-        Leaderbord leaders = new Leaderbord();
-        Speed setSpeed = new Speed();
-        GridSize gridSize = new GridSize();
+        
 
         Button play = new Button("Play");
         play.setFont(font);
         play.setMinSize(400, 50);
         play.setOnAction(event -> {
+            GamePanel.speed = speed;
+            GamePanel.GRID_SIZE = grid_size;
+            GamePanel game = new GamePanel();
             try {
                 game.start(stage);
             } catch (Exception e) {
@@ -69,6 +75,7 @@ public class MainMenu extends Application{
         vBox.setTranslateX(200);
         vBox.setTranslateY(50);
         root.getChildren().addAll(rect, vBox);
+        stage.setScene(scene);
         stage.show();
     }
 

@@ -24,7 +24,7 @@ import java.beans.EventHandler;
 public class GamePanel extends Application {
     public GridPane grid;
     private Rectangle apple;
-    public static final int GRID_SIZE = 17;
+    public static int GRID_SIZE = 17;
     public static final int TILE_SIZE = 30;
     Snake snake = new Snake(GRID_SIZE/2, GRID_SIZE/2);
     public boolean isAlive = true;
@@ -34,7 +34,7 @@ public class GamePanel extends Application {
     Text points = new Text();
     Stage stage;
     public int segmentSize = snake.segments.size();
-    public int speed;
+    public static long speed = 200000000;
     
 
      public static void main(String[] args) {
@@ -104,7 +104,7 @@ public class GamePanel extends Application {
 
     public class MyAnimationTimer extends AnimationTimer {
         private long lastUpdateTime = 0;
-        private final long updateInterval = 100000000; // 0,1 sekund
+        private final long updateInterval = GamePanel.speed; // 0,1 sekund
     
         @Override
         public void handle(long now) {
