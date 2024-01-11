@@ -2,12 +2,16 @@ import java.util.ArrayList;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 
 public class Snake{
     public ArrayList<Rectangle> segments;
     public String direction;
     public Rectangle tail;
+    public  int segmentSize;
+    public int score = 0;
+    public Text scoretxt = new Text();
 
     public Snake(int x, int y){
         this.segments = new ArrayList<Rectangle>();
@@ -24,6 +28,7 @@ public class Snake{
         segments.add(tail);
         
         this.direction = "LEFT";
+        segmentSize = segments.size();
     }
 
 

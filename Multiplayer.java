@@ -31,8 +31,9 @@ public class Multiplayer extends Application {
     public boolean isAlive = true;
     public boolean ateApple = false;
     MyAnimationTimer animationTimer = new MyAnimationTimer();
-    public int scoreCounter;
-    Text score = new Text();
+    
+    Text score1 = new Text();
+    Text score2 = new Text();
     Stage stage;
     public static long speed = 200000000;
     
@@ -57,20 +58,26 @@ public class Multiplayer extends Application {
         createSnake(snake1);
         createSnake(snake2);
         
-        score.setText("Score:" + scoreCounter);
-        score.setX(10);
-        score.setY(25);
-        score.setFont(Font.font("Roboto",30));
-        score.setFill(Color.CORNFLOWERBLUE);
+        snake1.scoretxt.setText("Score:" + snake1.score);
+        snake1.scoretxt.setX(10);
+        snake1.scoretxt.setY(25);
+        snake1.scoretxt.setFont(Font.font("Roboto",30));
+        snake1.scoretxt.setFill(Color.CORNFLOWERBLUE);
+
+        snake2.scoretxt.setText("Score:" + snake2.score);
+        snake2.scoretxt.setX(140);
+        snake2.scoretxt.setY(25);
+        snake2.scoretxt.setFont(Font.font("Roboto",30));
+        snake2.scoretxt.setFill(Color.CORNFLOWERBLUE);
         
         root.getChildren().add(grid);
-        root.getChildren().add(score);
+        root.getChildren().addAll(snake1.scoretxt, snake2.scoretxt);
         scene.setFill(Color.WHITE);
         primaryStage.setScene(scene);
         primaryStage.show();
         
-        /* animationTimer.start(); */
-        run();
+        animationTimer.start();
+        /* run(); */
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKey);
     }
@@ -132,7 +139,7 @@ public class Multiplayer extends Application {
             move(snake2);
             checkCollision(snake1, snake2);
             checkCollision(snake2, snake1);
-            Thread.sleep(200);
+            Thread.sleep(500);
         }
     }
     
@@ -296,17 +303,18 @@ public class Multiplayer extends Application {
 
 
     private void eatApple(Snake snake) {
-        scoreCounter++;
-        score.setText("Score:" + scoreCounter);
+        snake.score++;
+        snake.scoretxt.setText("Score:" + snake.score);
 
         grid.getChildren().remove(apple); // Remove apple from the grid
         Rectangle body = new Rectangle(TILE_SIZE, TILE_SIZE);
         body.setFill(Color.LIMEGREEN);
         
         snake.segments.add(body);
-        grid.add(body, GridPane.getColumnIndex(snake.segments.get(snake.segments.size() - 1)), GridPane.getRowIndex(snake.segments.get(snake.segments.size() - 1)));
-    
+        grid.add(body, GridPane.getColumnIndex(snake.segments.get(snake.segmentSize - 1)), GridPane.getRowIndex(snake.segments.get(snake.segmentSize - 1)));
+        
         spawnApple(); // spawn a new apple 
+        snake.segmentSize = snake.segments.size();
     }
 }
 
