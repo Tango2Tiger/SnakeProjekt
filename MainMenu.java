@@ -1,6 +1,7 @@
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
@@ -18,7 +19,9 @@ public class MainMenu extends Application{
     public static Speed setSpeed = new Speed();
     public static GridSize gridSize = new GridSize();
     public static MainMenu menu = new MainMenu();
+    public static Multiplayer multi = new Multiplayer();
     public static long speed = 200000000;
+    public static boolean isMulti = false;
     public static void main(String[] args) {
         launch(args);
     }
@@ -32,20 +35,31 @@ public class MainMenu extends Application{
         stage.setTitle("Snake");
 
         Rectangle rect = new Rectangle(800, 600);
-        Font font = Font.font(40);
+        Font font = Font.font(30);
         
 
         Button play = new Button("Play");
         play.setFont(font);
         play.setMinSize(400, 50);
         play.setOnAction(event -> {
-            GamePanel.speed = speed;
-            GamePanel.GRID_SIZE = grid_size;
-            GamePanel game = new GamePanel();
-            try {
-                game.start(stage);
-            } catch (Exception e) {
-                e.printStackTrace();
+            if(isMulti){
+                Multiplayer.speed = speed;
+                Multiplayer.GRID_SIZE = grid_size;
+                Multiplayer game = new Multiplayer();
+                try {
+                    game.start(stage);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else{
+                GamePanel.speed = speed;
+                GamePanel.GRID_SIZE = grid_size;
+                GamePanel game = new GamePanel();
+                try {
+                    game.start(stage);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -54,10 +68,10 @@ public class MainMenu extends Application{
         leaderbord.setMinSize(400, 50);
         leaderbord.setOnAction(event -> leaders.start(stage));
 
-        Button speed = new Button("Speed");
-        speed.setMinSize(400, 50);
-        speed.setFont(font);
-        speed.setOnAction(event -> setSpeed.start(stage));
+        Button speedbtn = new Button("Speed");
+        speedbtn.setMinSize(400, 50);
+        speedbtn.setFont(font);
+        speedbtn.setOnAction(event -> setSpeed.start(stage));
 
         Button setGrid = new Button("Grid Size");
         setGrid.setMinSize(400, 50);
@@ -70,8 +84,20 @@ public class MainMenu extends Application{
             }
         });
 
+        Button multiplayer = new Button("Multiplayer: OFF");
+        multiplayer.setFont(font);
+        multiplayer.setMinSize(400, 50);
+        multiplayer.setOnAction(event -> {
+            isMulti = !isMulti;
+            if(isMulti){
+                multiplayer.setText("Multiplayer: ON");
+            } else{
+                multiplayer.setText("Multiplayer: OFF");
+            }
+        });
 
-        VBox vBox = new VBox(50, play, leaderbord, speed, setGrid);
+
+        VBox vBox = new VBox(50, play, leaderbord, speedbtn, setGrid, multiplayer);
         vBox.setTranslateX(200);
         vBox.setTranslateY(50);
         root.getChildren().addAll(rect, vBox);

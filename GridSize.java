@@ -56,7 +56,6 @@ public class GridSize extends Application{
         size.setY(25);
         size.setFont(Font.font("Roboto",40));
         size.setFill(Color.CORNFLOWERBLUE);
-        /* size.textProperty().bind((slider.valueProperty().asString())); */
         size.textProperty().bind(slider.valueProperty().asString("%.0f"));
 
         Button done = new Button("Done");
