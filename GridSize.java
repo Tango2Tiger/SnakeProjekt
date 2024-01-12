@@ -44,7 +44,7 @@ public class GridSize extends Application{
         gridText.setFont(Font.font("Roboto",40));
         gridText.setFill(Color.CORNFLOWERBLUE);
 
-        Slider slider = new Slider(5, 50, 1);
+        Slider slider = new Slider(5, 50, 17);
         slider.setShowTickLabels(true);
         slider.setShowTickMarks(true);
         slider.setMajorTickUnit(5);
