@@ -23,15 +23,16 @@ public class GamePanel extends Application {
     public static int GRID_HEIGHT = 15;
     public static int GRID_WIDTH = 15;
     public static int TILE_SIZE = 25;
-    Snake snake = new Snake(GRID_WIDTH/2, GRID_HEIGHT/2);
+    Snake snake = new Snake();
     public boolean isAlive = true;
     public boolean ateApple = false;
     public int scoreCounter;
     Text points = new Text();
     Stage stage;
-    public int segmentSize = snake.segments.size();
+    public int segmentSize = 2;
     
-
+    //GRID_WIDTH/2, GRID_HEIGHT/2
+    //snake.segments.size()
     public static void main(String[] args) {
         launch(args);
     }
@@ -66,8 +67,8 @@ public class GamePanel extends Application {
         GRID_HEIGHT = gridh;
         GRID_WIDTH = gridw;
 
-        //calcTileSize();
-        
+        calcTileSize();
+        snake.create((int)(Math.floor(GRID_WIDTH/2)), (int)(Math.floor(GRID_HEIGHT/2)), TILE_SIZE);
 
         createGrid();
         createSnake();
@@ -102,9 +103,11 @@ public class GamePanel extends Application {
         spawnApple();
     }
 
-    /* public void calcTileSize(){
-        TILE_SIZE = (int)(Math.floor(650/GRID_HEIGHT));
-    } */
+    public void calcTileSize(){
+        int maxi = Math.max(GRID_WIDTH, GRID_HEIGHT);
+        TILE_SIZE = (int)(Math.floor(650/maxi));
+    } 
+
 
     public void createSnake(){
         ArrayList<Rectangle> l = snake.segments;

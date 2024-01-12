@@ -9,6 +9,12 @@ public class Snake{
     public String direction;
     public Rectangle tail;
 
+    public Snake(){
+        this.segments = new ArrayList<Rectangle>();
+        this.direction = "LEFT";
+        this.tail = null;
+    }
+
     public Snake(int x, int y){
         this.segments = new ArrayList<Rectangle>();
         Rectangle head = new Rectangle(GamePanel.TILE_SIZE,GamePanel.TILE_SIZE);
@@ -24,6 +30,20 @@ public class Snake{
         segments.add(tail);
         
         this.direction = "LEFT";
+    }
+
+    public void create(int x, int y, int s){
+        Rectangle head = new Rectangle(s,s);
+        head.setFill(Color.CORAL);
+        head.setX(x);
+        head.setY(y);
+        segments.add(head);
+
+        tail = new Rectangle(s,s);
+        tail.setFill(Color.LIMEGREEN);
+        tail.setX(x+1);
+        tail.setY(y);
+        segments.add(tail);
     }
 
 
