@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -19,7 +20,7 @@ import java.lang.Math;
 
 public class GamePanel extends Application {
     public GridPane grid;
-    private Rectangle apple;
+    private Circle apple;
     public static int GRID_HEIGHT = 15;
     public static int GRID_WIDTH = 15;
     public static int TILE_SIZE = 25;
@@ -31,8 +32,7 @@ public class GamePanel extends Application {
     Stage stage;
     public int segmentSize = 2;
     
-    //GRID_WIDTH/2, GRID_HEIGHT/2
-    //snake.segments.size()
+    
     public static void main(String[] args) {
         launch(args);
     }
@@ -50,6 +50,7 @@ public class GamePanel extends Application {
         primaryStage.setResizable(true);
 
         Scanner input = new Scanner(System.in);
+        System.out.println("Please enter grid size. Numbers above 70 is generally not recommended - it hurts your eyes.");
         System.out.print("Preferred grid width: ");
         while(!input.hasNextInt()){
             System.out.println("Please type integer between 5 and 100");
@@ -167,10 +168,8 @@ public class GamePanel extends Application {
     }
 
 
-    private Rectangle createApple(){
-        Rectangle apple = new Rectangle(TILE_SIZE-2, TILE_SIZE-2);
-        apple.setArcHeight(30);
-        apple.setArcWidth(15);
+    private Circle createApple(){
+        Circle apple = new Circle((int)(Math.floor(TILE_SIZE*0.75/2)));
         apple.setFill(Color.TOMATO);
         return apple;
     }
