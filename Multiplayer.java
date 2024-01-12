@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -18,16 +20,18 @@ import javafx.animation.*;
 import javafx.event.*;
 import javafx.animation.*;
 import java.beans.EventHandler;
+import java.io.File;
 
 
 
 public class Multiplayer extends Application {
     public GridPane grid;
     private Rectangle apple;
-    public static int GRID_SIZE = 17;
+    public static int GRID_WIDTH = 17;
+    public static int GRID_HEIGHT = 17;
     public static final int TILE_SIZE = 30;
-    public static Snake snake1 = new Snake((int) Math.round((2/3)*GRID_SIZE), (int) Math.round((1/2)*GRID_SIZE));
-    public static Snake snake2 = new Snake((int) Math.round((1/3)*GRID_SIZE), (int) Math.round((1/2)*GRID_SIZE));
+    public static Snake snake1 = new Snake((int) Math.round((2/3)*GRID_WIDTH), (int) Math.round((1/2)*GRID_HEIGHT), Color.LIMEGREEN);
+    public static Snake snake2 = new Snake((int) Math.round((1/3)*GRID_WIDTH), (int) Math.round((1/2)*GRID_HEIGHT), Color.AQUAMARINE);
     public boolean isAlive = true;
     public boolean ateApple = false;
     MyAnimationTimer animationTimer = new MyAnimationTimer();
@@ -35,6 +39,10 @@ public class Multiplayer extends Application {
     Text score1 = new Text();
     Text score2 = new Text();
     Stage stage;
+    static String path = "C:\\Users\\magnu\\Dropbox\\MagnusDropbox\\Skole\\DTU\\1.semester\\SnakeProjekt-1\\DOG.mp3"; 
+    static Media media = new Media(new File(path).toURI().toString());
+    static MediaPlayer mediaPlayer = new MediaPlayer(media);
+
     public static long speed = 200000000;
     
 
@@ -45,6 +53,7 @@ public class Multiplayer extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        mediaPlayer.setAutoPlay(true);
         grid = new GridPane();
         stage = primaryStage;
         
@@ -83,8 +92,8 @@ public class Multiplayer extends Application {
 
 
     private void createGrid(){
-        for(int row = 0; row<GRID_SIZE; row++){
-            for(int col = 0; col<GRID_SIZE; col++){
+        for(int row = 0; row<GRID_HEIGHT; row++){
+            for(int col = 0; col<GRID_WIDTH; col++){
                 Rectangle pane = new Rectangle(TILE_SIZE, TILE_SIZE);
                 pane.setFill(Color.WHITESMOKE);
                 pane.setStroke(Color.BLACK);
@@ -142,12 +151,12 @@ public class Multiplayer extends Application {
                 if(GridPane.getRowIndex(snake.segments.get(0)) > 0){
                     GridPane.setConstraints(snake.segments.get(0), GridPane.getColumnIndex(snake.segments.get(0)), GridPane.getRowIndex(snake.segments.get(0))-1);
                 } else{
-                    GridPane.setConstraints(snake.segments.get(0), GridPane.getColumnIndex(snake.segments.get(0)), GRID_SIZE-1);
+                    GridPane.setConstraints(snake.segments.get(0), GridPane.getColumnIndex(snake.segments.get(0)), GRID_HEIGHT-1);
                 }
                 break;
 
             case "DOWN":
-                if(GridPane.getRowIndex(snake.segments.get(0)) < GRID_SIZE-1){
+                if(GridPane.getRowIndex(snake.segments.get(0)) < GRID_HEIGHT-1){
                     GridPane.setConstraints(snake.segments.get(0), GridPane.getColumnIndex(snake.segments.get(0)), GridPane.getRowIndex(snake.segments.get(0))+1);
                 } else{
                     GridPane.setConstraints(snake.segments.get(0), GridPane.getColumnIndex(snake.segments.get(0)), 0);
@@ -158,12 +167,12 @@ public class Multiplayer extends Application {
                 if(GridPane.getColumnIndex(snake.segments.get(0)) > 0){
                     GridPane.setConstraints(snake.segments.get(0), GridPane.getColumnIndex(snake.segments.get(0))-1, GridPane.getRowIndex(snake.segments.get(0)));
                 } else{
-                    GridPane.setConstraints(snake.segments.get(0), GRID_SIZE-1, GridPane.getRowIndex(snake.segments.get(0)));
+                    GridPane.setConstraints(snake.segments.get(0), GRID_WIDTH-1, GridPane.getRowIndex(snake.segments.get(0)));
                 }
                 break;
 
             case "RIGHT":
-                if(GridPane.getColumnIndex(snake.segments.get(0)) < GRID_SIZE-1){
+                if(GridPane.getColumnIndex(snake.segments.get(0)) < GRID_WIDTH-1){
                     GridPane.setConstraints(snake.segments.get(0), GridPane.getColumnIndex(snake.segments.get(0))+1, GridPane.getRowIndex(snake.segments.get(0)));
                 } else{
                     GridPane.setConstraints(snake.segments.get(0), 0, GridPane.getRowIndex(snake.segments.get(0)));
@@ -187,8 +196,8 @@ public class Multiplayer extends Application {
 
     public void spawnApple() {
         Random random = new Random();
-        int appleX = random.nextInt(GRID_SIZE);
-        int appleY = random.nextInt(GRID_SIZE);
+        int appleX = random.nextInt(GRID_WIDTH);
+        int appleY = random.nextInt(GRID_HEIGHT);
 
         apple = createApple();
         GridPane.setHalignment(apple, HPos.CENTER);
@@ -296,7 +305,7 @@ public class Multiplayer extends Application {
 
         grid.getChildren().remove(apple); // Remove apple from the grid
         Rectangle body = new Rectangle(TILE_SIZE, TILE_SIZE);
-        body.setFill(Color.LIMEGREEN);
+        body.setFill(snake.col);
         
         snake.segments.add(body);
         grid.add(body, GridPane.getColumnIndex(snake.segments.get(snake.segmentSize - 1)), GridPane.getRowIndex(snake.segments.get(snake.segmentSize - 1)));

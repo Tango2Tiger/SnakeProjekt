@@ -34,35 +34,60 @@ public class GridSize extends Application{
         Scene scene = new Scene(root);
         stage.setTitle("Snake");
 
-        Font font = Font.font(40);
+        Font font = Font.font(20);
 
         Rectangle rect = new Rectangle(800, 600);
-        Text gridText = new Text();
-        gridText.setText("Choose grid size:");
-        gridText.setX(10);
-        gridText.setY(25);
-        gridText.setFont(Font.font("Roboto",40));
-        gridText.setFill(Color.CORNFLOWERBLUE);
 
-        Slider slider = new Slider(5, 50, 17);
-        slider.setShowTickLabels(true);
-        slider.setShowTickMarks(true);
-        slider.setMajorTickUnit(5);
-        slider.setBlockIncrement(10);
+        Text widthtxt = new Text();
+        widthtxt.setText("Width:");
+        widthtxt.setX(10);
+        widthtxt.setY(25);
+        widthtxt.setFont(Font.font("Roboto",30));
+        widthtxt.setFill(Color.CORNFLOWERBLUE);
+
+        Slider widthslider = new Slider(5, 50, 17);
+        widthslider.setShowTickLabels(true);
+        widthslider.setShowTickMarks(true);
+        widthslider.setMajorTickUnit(5);
+        widthslider.setBlockIncrement(10);
 
 
-        Text size = new Text();
-        size.setX(10);
-        size.setY(25);
-        size.setFont(Font.font("Roboto",40));
-        size.setFill(Color.CORNFLOWERBLUE);
-        size.textProperty().bind(slider.valueProperty().asString("%.0f"));
+        Text width = new Text();
+        width.setX(10);
+        width.setY(25);
+        width.setFont(Font.font("Roboto",30));
+        width.setFill(Color.CORNFLOWERBLUE);
+        width.textProperty().bind(widthslider.valueProperty().asString("%.0f"));
+        
 
+        Text heighttxt = new Text();
+        heighttxt.setText("Height:");
+        heighttxt.setX(10);
+        heighttxt.setY(25);
+        heighttxt.setFont(Font.font("Roboto",30));
+        heighttxt.setFill(Color.CORNFLOWERBLUE);
+
+        Slider heightslider = new Slider(5, 50, 17);
+        heightslider.setShowTickLabels(true);
+        heightslider.setShowTickMarks(true);
+        heightslider.setMajorTickUnit(5);
+        heightslider.setBlockIncrement(10);
+
+        Text height = new Text();
+        height.setX(10);
+        height.setY(25);
+        height.setFont(Font.font("Roboto",30));
+        height.setFill(Color.CORNFLOWERBLUE);
+        height.textProperty().bind(heightslider.valueProperty().asString("%.0f"));
+
+
+        
         Button done = new Button("Done");
-        done.setMinSize(400, 50);
+        done.setMinSize(400, 40);
         done.setFont(font);
         done.setOnAction(event -> {
-        MainMenu.grid_size = (int) slider.getValue();
+        MainMenu.grid_width = (int) widthslider.getValue();
+        MainMenu.grid_height = (int) heightslider.getValue();
         try {
             menu.start(stage);
         } catch (Exception e) {
@@ -71,7 +96,7 @@ public class GridSize extends Application{
         });
         
 
-        VBox vBox = new VBox(50, gridText, slider, size, done);
+        VBox vBox = new VBox(30, heighttxt, heightslider, height, widthtxt, widthslider, width, done);
         vBox.setTranslateX(200);
         vBox.setTranslateY(50);
         root.getChildren().addAll(rect, vBox);
