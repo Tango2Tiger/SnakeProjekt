@@ -77,7 +77,6 @@ public class Multiplayer extends Application {
         primaryStage.show();
         
         animationTimer.start();
-        /* run(); */
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKey);
     }
@@ -132,17 +131,6 @@ public class Multiplayer extends Application {
         
         }
 
-
-    public void run() throws InterruptedException{
-        while(isAlive){
-            move(snake1);
-            move(snake2);
-            checkCollision(snake1, snake2);
-            checkCollision(snake2, snake1);
-            Thread.sleep(500);
-        }
-    }
-    
 
     public void move(Snake snake){
         GridPane.setConstraints(snake.segments.get(snake.segments.size()-1), GridPane.getColumnIndex(snake.segments.get(0)), GridPane.getRowIndex(snake.segments.get(0)));
