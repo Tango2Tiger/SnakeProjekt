@@ -32,7 +32,7 @@ public class MainMenu extends Application{
     public static long speed = 200000000;
     public static boolean isMulti = false;
 
-    static String path = "C:\\Users\\magnu\\Dropbox\\MagnusDropbox\\Skole\\DTU\\1.semester\\SnakeProjekt-1\\Wii.mp3"; 
+    static String path = "Wii.mp3"; 
     static Media media = new Media(new File(path).toURI().toString());
     static MediaPlayer mediaPlayer = new MediaPlayer(media);
         
