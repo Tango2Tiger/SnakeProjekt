@@ -12,24 +12,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
-import javafx.animation.*;
-import javafx.event.*;
-import javafx.animation.*;
-
+import java.util.Scanner;
+import java.lang.Math;
 
 
 public class GamePanel extends Application {
     public GridPane grid;
     private Rectangle apple;
-    public static final int GRID_HEIGHT = 17;
-    public static final int GRID_WIDTH = 17;
-    public static final int TILE_SIZE = 30;
+    public static int GRID_HEIGHT = 15;
+    public static int GRID_WIDTH = 15;
+    public static int TILE_SIZE = 25;
     Snake snake = new Snake(GRID_WIDTH/2, GRID_HEIGHT/2);
     public boolean isAlive = true;
     public boolean ateApple = false;
-    MyAnimationTimer animationTimer = new MyAnimationTimer();
     public int scoreCounter;
     Text points = new Text();
     Stage stage;
@@ -52,6 +48,27 @@ public class GamePanel extends Application {
         primaryStage.setTitle("SNAKE");
         primaryStage.setResizable(true);
 
+        Scanner input = new Scanner(System.in);
+        System.out.print("Preferred grid width: ");
+        while(!input.hasNextInt()){
+            System.out.println("Please type integer between 5 and 100");
+            input.next();
+        }
+        int gridw = input.nextInt();
+
+        System.out.print("Preferred grid height: ");
+        while(!input.hasNextInt()){
+            System.out.println("Please type integer between 5 and 100");
+            input.next();
+        }
+        int gridh = input.nextInt();
+
+        GRID_HEIGHT = gridh;
+        GRID_WIDTH = gridw;
+
+        //calcTileSize();
+        
+
         createGrid();
         createSnake();
         
@@ -67,7 +84,6 @@ public class GamePanel extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         
-        animationTimer.start();
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKey);
     }
@@ -86,6 +102,9 @@ public class GamePanel extends Application {
         spawnApple();
     }
 
+    /* public void calcTileSize(){
+        TILE_SIZE = (int)(Math.floor(650/GRID_HEIGHT));
+    } */
 
     public void createSnake(){
         ArrayList<Rectangle> l = snake.segments;
@@ -99,25 +118,6 @@ public class GamePanel extends Application {
             grid.add(rect,xrect,yrect);
         }
     }
-
-
-    public class MyAnimationTimer extends AnimationTimer {
-        private long lastUpdateTime = 0;
-        private final long updateInterval = 100000000; // 0,1 sekund
-    
-        @Override
-        public void handle(long now) {
-            
-             if(now - lastUpdateTime >= updateInterval) {
-                // Her skal vi opdateret slangen så den rykker.
-                move();
-                checkCollision();
-                // Update the last update time
-                lastUpdateTime = now;
-                }
-            }
-        
-        }
     
 
     public void move(){
@@ -165,7 +165,7 @@ public class GamePanel extends Application {
 
 
     private Rectangle createApple(){
-        Rectangle apple = new Rectangle(TILE_SIZE-5, TILE_SIZE-5);
+        Rectangle apple = new Rectangle(TILE_SIZE-2, TILE_SIZE-2);
         apple.setArcHeight(30);
         apple.setArcWidth(15);
         apple.setFill(Color.TOMATO);
@@ -212,6 +212,11 @@ public class GamePanel extends Application {
         } else{
             return;
         }
+        if(isAlive){
+            move();
+        } 
+        
+        checkCollision();
     }
 
 
@@ -227,33 +232,11 @@ public class GamePanel extends Application {
 
             if (headX == x && headY == y) {
                 isAlive = false;
-                animationTimer.stop();
+                //animationTimer.stop();
                 //gameOver();
             }
         }
-        //Collision with borders. 
-        /* switch (headX) {
-            case 0:
-                GridPane.setConstraints(snake.segments.get(0), GRID_WIDTH, GridPane.getRowIndex(snake.segments.get(0)));
-                break;
-            case GRID_WIDTH:
-                GridPane.setConstraints(snake.segments.get(0), 0, GridPane.getRowIndex(snake.segments.get(0)));
-                break;
-
-            default:
-                break;
-        }
-        switch (headY) {
-            case 0:
-                GridPane.setConstraints(snake.segments.get(0), GridPane.getColumnIndex(snake.segments.get(0)), GRID_HEIGHT);
-                break;
-            case GRID_HEIGHT:
-                GridPane.setConstraints(snake.segments.get(0), GridPane.getColumnIndex(snake.segments.get(0)), 0);
-                break;
-
-            default:
-                break;
-        } */
+        
         
         int appleX = GridPane.getColumnIndex(apple);
         int appleY = GridPane.getRowIndex(apple);
