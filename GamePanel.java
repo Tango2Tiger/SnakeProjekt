@@ -2,6 +2,7 @@ import java.util.Random;
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -18,13 +19,14 @@ import javafx.animation.*;
 import javafx.event.*;
 import javafx.animation.*;
 import java.beans.EventHandler;
+/* import GameOverPackage.GameOver; */
 
 
 
 public class GamePanel extends Application {
     public GridPane grid;
     private Rectangle apple;
-    public static int GRID_SIZE = 17;
+    public static int GRID_SIZE = 15;
     public static final int TILE_SIZE = 30;
     public static Snake snake = new Snake((1/2)*GRID_SIZE, (1/2)*GRID_SIZE);
     public boolean isAlive = true;
@@ -32,9 +34,13 @@ public class GamePanel extends Application {
     MyAnimationTimer animationTimer = new MyAnimationTimer();
     public int scoreCounter;
     Text score = new Text();
-    Stage stage;
     public int segmentSize = snake.segments.size();
     public static long speed = 200000000;
+    private StackPane root;
+    MainMenu menu = new MainMenu();
+    Stage primaryStage;
+    Scene scene;
+    
     
 
      public static void main(String[] args) {
@@ -44,34 +50,32 @@ public class GamePanel extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        this.primaryStage = primaryStage;
         grid = new GridPane();
-        stage = primaryStage;
-        
-        Group root = new Group();
-        Scene scene = new Scene(root);
-        
+        root = new StackPane();
+        root.getChildren().add(grid);
+
+        scene = new Scene(root);
+
         primaryStage.setTitle("SNAKE");
         primaryStage.setResizable(true);
 
         createGrid();
         createSnake(snake);
-        
+
+        score.setTranslateX(scene.getWidth()- GRID_SIZE*12); // Adjust the X-coordinate as needed
+        score.setTranslateY(scene.getHeight()- GRID_SIZE*15);
         score.setText("Score:" + scoreCounter);
-        score.setX(10);
-        score.setY(25);
-        score.setFont(Font.font("Roboto",30));
+        score.setFont(Font.font(25));
         score.setFill(Color.CORNFLOWERBLUE);
-        
-        root.getChildren().add(grid);
         root.getChildren().add(score);
         scene.setFill(Color.WHITE);
         primaryStage.setScene(scene);
         primaryStage.show();
-        
         animationTimer.start();
-
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKey);
     }
+
 
 
     private void createGrid(){
@@ -87,7 +91,6 @@ public class GamePanel extends Application {
         spawnApple();
     }
 
-
     public void createSnake(Snake snake){
         ArrayList<Rectangle> l = snake.segments;
         int xrect = 0;
@@ -101,7 +104,59 @@ public class GamePanel extends Application {
         }
     }
 
+    private void showGameOverScene() {
+        Rectangle gameOverOverlay = new Rectangle(GRID_SIZE*TILE_SIZE + 50, GRID_SIZE*TILE_SIZE + 50, Color.BLACK);
+        
+        Text ys = new Text("You're score was: " + scoreCounter);
+        ys.setFont(Font.font(30));
+        ys.setFill(Color.BLUE);
 
+        Text go = new Text("Game Over!");
+        go.setFont(Font.font(50));
+        go.setFill(Color.RED);
+
+        Text pa = new Text("Press ENTER to start a new game");
+        pa.setFill(Color.WHITE);
+
+        Text mm = new Text("Press ESC to go back to the main menu");
+        mm.setFill(Color.WHITE);
+
+        VBox gameOverContent = new VBox(50, go, ys, pa, mm);
+        gameOverContent.setSpacing(30);
+        gameOverContent.setAlignment(Pos.CENTER);
+        root.getChildren().addAll(gameOverOverlay, gameOverContent);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            try {
+                handleKeys(event);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }); 
+    }
+
+    private void handleKeys(KeyEvent event) throws Exception{
+        if (event.getCode() == KeyCode.ESCAPE && !isAlive){
+            GamePanel.speed = 2000000000;
+            restartgame();
+            menu.start(primaryStage);
+        } else if(event.getCode() == KeyCode.ENTER && !isAlive){
+            restartgame();
+        } else{
+            return;
+        }
+    }
+
+    private void restartgame() throws Exception {
+        animationTimer.stop();
+        grid.getChildren().clear();
+        snake = new Snake((1/2)*GRID_SIZE, (1/2)*GRID_SIZE);
+        
+        GamePanel newGame = new GamePanel();
+        newGame.start(primaryStage);
+    }
 
     public class MyAnimationTimer extends AnimationTimer {
         private long lastUpdateTime = 0;
@@ -112,7 +167,7 @@ public class GamePanel extends Application {
             
              if(now - lastUpdateTime >= updateInterval) {
                 // Her skal vi opdateret slangen så den rykker.
-                move(GamePanel.snake);
+                move(snake);
                 checkCollision();
                 // Update the last update time
                 lastUpdateTime = now;
@@ -195,7 +250,6 @@ public class GamePanel extends Application {
         ateApple = false;
     }
 
-
     //Putting barriers so the snake cannot go in the opposite way of what it is currently moving.
     private void handleKey(KeyEvent event){
         if(event.getCode() == KeyCode.UP && !snake.direction.equals("DOWN")){
@@ -210,7 +264,13 @@ public class GamePanel extends Application {
         } else if(event.getCode() == KeyCode.LEFT && !snake.direction.equals("RIGHT")){
             snake.direction = "LEFT";
             
-        } else{
+        } /* else if(event.getCode() == KeyCode.ESCAPE && !isAlive){
+            menu.start(primaryStage);
+            
+        } else if(event.getCode() == KeyCode.ENTER && !isAlive){
+            start(primaryStage);
+            
+        } */ else{
             return;
         }
     }
@@ -231,7 +291,8 @@ public class GamePanel extends Application {
             if (headX == x && headY == y) {
                 isAlive = false;
                 animationTimer.stop();
-                //gameOver();
+                showGameOverScene();
+                return;
             }
         }
         
@@ -260,5 +321,3 @@ public class GamePanel extends Application {
         segmentSize = snake.segments.size();
     }
 }
-
-
