@@ -21,6 +21,7 @@ import javafx.event.*;
 import javafx.animation.*;
 import java.beans.EventHandler;
 import java.io.File;
+import java.lang.Math;
 
 
 
@@ -29,8 +30,9 @@ public class GamePanel extends Application {
     private Rectangle apple;
     public static int GRID_HEIGHT = 17;
     public static int GRID_WIDTH = 17;
-    public static final int TILE_SIZE = 30;
-    public static Snake snake = new Snake((int)(1/2)*GRID_WIDTH, (int)(1/2)*GRID_HEIGHT, Color.LIMEGREEN);
+    public static int TILE_SIZE = 30;
+    public static Snake snake = new Snake((1/2)*GRID_WIDTH, (1/2)*GRID_HEIGHT, Color.LIMEGREEN);
+    //
     public boolean isAlive = true;
     public boolean ateApple = false;
     MyAnimationTimer animationTimer = new MyAnimationTimer();
@@ -64,6 +66,9 @@ public class GamePanel extends Application {
         primaryStage.setTitle("SNAKE");
         primaryStage.setResizable(true);
 
+        /* calcTileSize();
+        snake.create((int)(Math.floor(GRID_WIDTH/2)), (int)(Math.floor(GRID_HEIGHT/2)), TILE_SIZE);
+        */
         createGrid();
         createSnake(snake);
         
@@ -98,6 +103,11 @@ public class GamePanel extends Application {
         spawnApple();
     }
 
+    public void calcTileSize(){
+        int maxi = Math.max(GRID_WIDTH, GRID_HEIGHT);
+        TILE_SIZE = (int)(Math.floor(650/maxi));
+    } 
+
 
     public void createSnake(Snake snake){
         ArrayList<Rectangle> l = snake.segments;
@@ -121,16 +131,15 @@ public class GamePanel extends Application {
         @Override
         public void handle(long now) {
             
-             if(now - lastUpdateTime >= updateInterval) {
+            if(now - lastUpdateTime >= updateInterval) {
                 // Her skal vi opdateret slangen så den rykker.
                 move(GamePanel.snake);
                 checkCollision();
                 // Update the last update time
                 lastUpdateTime = now;
-                }
             }
-        
         }
+    }
     
 
     public void move(Snake snake){
