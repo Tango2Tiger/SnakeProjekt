@@ -53,7 +53,6 @@ public class MainMenu extends Application{
                 }
             } else{
                 GamePanel.speed = speed;
-                GamePanel.GRID_SIZE = grid_size;
                 GamePanel game = new GamePanel();
                 try {
                     game.start(stage);
