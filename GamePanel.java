@@ -53,7 +53,13 @@ public class GamePanel extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        mediaPlayer.setAutoPlay(true);
+        /* mediaPlayer.setAutoPlay(true); */
+        media.setOnEndOfMedia(new Runnable() {
+            public void run() {
+              media.seek(Duration.ZERO);
+            }
+        });
+       a.play();
         grid = new GridPane();
         stage = primaryStage;
         
