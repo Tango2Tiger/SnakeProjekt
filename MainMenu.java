@@ -27,7 +27,7 @@ public class MainMenu extends Application{
     public static Leaderbord leaders = new Leaderbord();
     public static Speed setSpeed = new Speed();
     public static GridSize gridSize = new GridSize();
-    public static MainMenu menu = new MainMenu();
+    // public static MainMenu menu = new MainMenu();
     public static Multiplayer multi = new Multiplayer();
     public static long speed = 200000000;
     public static boolean isMulti = false;
