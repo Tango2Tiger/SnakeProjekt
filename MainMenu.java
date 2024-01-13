@@ -35,9 +35,11 @@ public class MainMenu extends Application{
     static String path = "Wii.mp3"; 
     static Media media = new Media(new File(path).toURI().toString());
     static MediaPlayer mediaPlayer = new MediaPlayer(media);
+    
         
     public static void main(String[] args) {
         mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setVolume(0.2);
         launch(args);
     }
 
