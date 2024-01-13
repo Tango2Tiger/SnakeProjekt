@@ -3,6 +3,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
@@ -27,17 +28,19 @@ public class MainMenu extends Application{
     public static Leaderbord leaders = new Leaderbord();
     public static Speed setSpeed = new Speed();
     public static GridSize gridSize = new GridSize();
-    // Unødvendig? public static MainMenu menu = new MainMenu();
     public static Multiplayer multi = new Multiplayer();
     public static long speed = 200000000;
     public static boolean isMulti = false;
+    public static boolean soundOn = true;
 
     static String path = "Wii.mp3"; 
     static Media media = new Media(new File(path).toURI().toString());
     static MediaPlayer mediaPlayer = new MediaPlayer(media);
+    
         
     public static void main(String[] args) {
         mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setVolume(0.2);
         launch(args);
     }
 
@@ -84,7 +87,7 @@ public class MainMenu extends Application{
         });
 
 
-        Button leaderbord = new Button("Leaderbord");
+        Button leaderbord = new Button("Leaderboard");
         leaderbord.setFont(font);
         leaderbord.setMinSize(400, 50);
         leaderbord.setOnAction(event -> leaders.start(stage));
@@ -105,6 +108,28 @@ public class MainMenu extends Application{
             }
         });
 
+        
+        Image on = new Image(getClass().getResourceAsStream("soundon.png"));
+        Image off = new Image(getClass().getResourceAsStream("soundoff.png"));
+        ImageView soundon = new ImageView(on);
+        ImageView soundoff = new ImageView(off);
+
+        Button mute = new Button("",soundon);
+
+
+        mute.setFont(font);
+        
+        mute.setMinSize(30, 30);
+        mute.setOnAction(event -> {
+            soundOn = !soundOn;
+            if(soundOn){
+                mute.setGraphic(soundon);
+                mediaPlayer.play();
+            } else{
+                mute.setGraphic(soundoff);
+                mediaPlayer.pause();
+            }
+        });
 
         Button multiplayer = new Button("Multiplayer: OFF");
         multiplayer.setFont(font);
@@ -119,10 +144,15 @@ public class MainMenu extends Application{
         });
 
 
-        VBox vBox = new VBox(50, play, leaderbord, speedbtn, setGrid, multiplayer);
+        VBox vBox = new VBox(50, play, leaderbord, speedbtn, setGrid, multiplayer, mute);
         vBox.setTranslateX(200);
         vBox.setTranslateY(50);
-        root.getChildren().addAll(rect, vBox);
+
+        VBox soundBox = new VBox(mute);
+        soundBox.setTranslateX(20);
+        soundBox.setTranslateY(500);
+
+        root.getChildren().addAll(rect, vBox, soundBox);
         stage.setScene(scene);
         stage.show();
     }

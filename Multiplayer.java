@@ -46,7 +46,7 @@ public class Multiplayer extends Application {
     public static long speed = 200000000;
     
 
-     public static void main(String[] args) {
+    public static void main(String[] args) {
         launch(args);
     }
 
@@ -54,6 +54,7 @@ public class Multiplayer extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setVolume(0.1);
         grid = new GridPane();
         stage = primaryStage;
         

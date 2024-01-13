@@ -14,9 +14,17 @@ public class Snake{
     public Text scoretxt = new Text();
     public Color col = Color.LIMEGREEN;
 
+    public Snake(){
+        segments = new ArrayList<Rectangle>();
+        direction = "LEFT";
+        tail = null;
+        segmentSize = segments.size();
+        
+    }
+
     public Snake(int x, int y, Color color){
         col = color;
-        this.segments = new ArrayList<Rectangle>();
+        segments = new ArrayList<Rectangle>();
         Rectangle head = new Rectangle(GamePanel.TILE_SIZE,GamePanel.TILE_SIZE);
         head.setFill(Color.CORAL);
         head.setX(x);
@@ -32,6 +40,23 @@ public class Snake{
         this.direction = "LEFT";
         segmentSize = segments.size();
     }
+
+    public void create(int x, int y, int s){
+        Rectangle head = new Rectangle(s,s);
+        head.setX(x);
+        head.setY(y);
+        segments.add(head);
+
+        tail = new Rectangle(s,s);
+        tail.setX(x+1);
+        tail.setY(y);
+        segments.add(tail);
+    }
+
+    public void setCol(Color color){
+        col = color;
+    }
+    
 
 
 
