@@ -54,6 +54,7 @@ public class Multiplayer extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setVolume(0.1);
         grid = new GridPane();
         stage = primaryStage;
         

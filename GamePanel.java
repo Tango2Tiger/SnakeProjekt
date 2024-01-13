@@ -30,13 +30,13 @@ public class GamePanel extends Application {
     public static int GRID_HEIGHT = 17;
     public static int GRID_WIDTH = 17;
     public static final int TILE_SIZE = 30;
-    public static Snake snake = new Snake((1/2)*GRID_WIDTH, (1/2)*GRID_HEIGHT, Color.LIMEGREEN);
+    public static Snake snake = new Snake((int)(1/2)*GRID_WIDTH, (int)(1/2)*GRID_HEIGHT, Color.LIMEGREEN);
     public boolean isAlive = true;
     public boolean ateApple = false;
     MyAnimationTimer animationTimer = new MyAnimationTimer();
     public int scoreCounter;
     Text score = new Text();
-    Stage stage;
+    public static Stage stage;
     public int segmentSize = snake.segments.size();
     public static long speed = 200000000;
 
@@ -53,13 +53,8 @@ public class GamePanel extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        /* mediaPlayer.setAutoPlay(true); */
-        media.setOnEndOfMedia(new Runnable() {
-            public void run() {
-              media.seek(Duration.ZERO);
-            }
-        });
-       a.play();
+        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setVolume(0.1);
         grid = new GridPane();
         stage = primaryStage;
         

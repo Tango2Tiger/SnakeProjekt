@@ -16,7 +16,7 @@ public class Snake{
 
     public Snake(int x, int y, Color color){
         col = color;
-        this.segments = new ArrayList<Rectangle>();
+        segments = new ArrayList<Rectangle>();
         Rectangle head = new Rectangle(GamePanel.TILE_SIZE,GamePanel.TILE_SIZE);
         head.setFill(Color.CORAL);
         head.setX(x);
