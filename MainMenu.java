@@ -13,10 +13,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-
 import java.io.File;
 import java.time.Duration;
-
 import javax.print.DocFlavor.URL;
 import javafx.application.*;
 
@@ -27,7 +25,7 @@ public class MainMenu extends Application{
     public static Leaderbord leaders = new Leaderbord();
     public static Speed setSpeed = new Speed();
     public static GridSize gridSize = new GridSize();
-    // Unødvendig? public static MainMenu menu = new MainMenu();
+    public static MainMenu menu = new MainMenu();
     public static Multiplayer multi = new Multiplayer();
     public static long speed = 200000000;
     public static boolean isMulti = false;

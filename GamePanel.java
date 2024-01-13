@@ -72,8 +72,8 @@ public class GamePanel extends Application {
         createGrid();
         createSnake(snake);
 
-        score.setTranslateX(scene.getWidth()- GRID_WIDTH); // Adjust the X-coordinate as needed
-        score.setTranslateY(scene.getHeight()- GRID_HEIGHT);
+        score.setTranslateX(scene.getWidth()- GRID_WIDTH*13); // Adjust the X-coordinate as needed
+        score.setTranslateY(scene.getHeight()- GRID_HEIGHT*14.5);
         score.setText("Score:" + scoreCounter);
         score.setFont(Font.font(25));
         score.setFill(Color.CORNFLOWERBLUE);
@@ -114,25 +114,26 @@ public class GamePanel extends Application {
     }
 
     private void showGameOverScene() {
-        Rectangle gameOverOverlay = new Rectangle(GRID_HEIGHT, GRID_WIDTH, Color.BLACK);
-        
+        Rectangle gameOverOverlay = new Rectangle(800, 600, Color.BLACK);
+    
         Text ys = new Text("You're score was: " + scoreCounter);
         ys.setFont(Font.font(30));
         ys.setFill(Color.BLUE);
-
+    
         Text go = new Text("Game Over!");
         go.setFont(Font.font(50));
         go.setFill(Color.RED);
-
+    
         Text pa = new Text("Press ENTER to start a new game");
         pa.setFill(Color.WHITE);
-
+    
         Text mm = new Text("Press ESC to go back to the main menu");
         mm.setFill(Color.WHITE);
-
+    
         VBox gameOverContent = new VBox(50, go, ys, pa, mm);
         gameOverContent.setSpacing(30);
         gameOverContent.setAlignment(Pos.CENTER);
+    
         root.getChildren().addAll(gameOverOverlay, gameOverContent);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -140,11 +141,12 @@ public class GamePanel extends Application {
             try {
                 handleKeys(event);
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }); 
+        });
     }
+    
+    
 
     private void handleKeys(KeyEvent event) throws Exception{
         if (event.getCode() == KeyCode.ESCAPE && !isAlive){
