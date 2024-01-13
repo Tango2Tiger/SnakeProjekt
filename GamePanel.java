@@ -79,8 +79,8 @@ public class GamePanel extends Application {
         createGrid();
         createSnake(snake);
 
-        score.setTranslateX(scene.getWidth()- GRID_WIDTH); // Adjust the X-coordinate as needed
-        score.setTranslateY(scene.getHeight()- GRID_HEIGHT);
+        score.setTranslateX(scene.getWidth()- GRID_WIDTH*13); // Adjust the X-coordinate as needed
+        score.setTranslateY(scene.getHeight()- GRID_HEIGHT*14.5);
         score.setText("Score:" + scoreCounter);
         score.setFont(Font.font(25));
         score.setFill(Color.CORNFLOWERBLUE);
@@ -127,7 +127,7 @@ public class GamePanel extends Application {
     }
 
     private void showGameOverScene() {
-        Rectangle gameOverOverlay = new Rectangle(GRID_HEIGHT, GRID_WIDTH, Color.BLACK);
+        Rectangle gameOverOverlay = new Rectangle(800, 600, Color.BLACK);
         
         Text ys = new Text("You're score was: " + scoreCounter);
         ys.setFont(Font.font(30));
