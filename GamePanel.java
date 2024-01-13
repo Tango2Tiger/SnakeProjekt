@@ -40,7 +40,7 @@ public class GamePanel extends Application {
     public int segmentSize = snake.segments.size();
     public static long speed = 200000000;
 
-    static String path = "C:\\Users\\magnu\\Dropbox\\MagnusDropbox\\Skole\\DTU\\1.semester\\SnakeProjekt-1\\Dog.mp3"; 
+    static String path = "Dog.mp3"; 
     static Media media = new Media(new File(path).toURI().toString());
     static MediaPlayer mediaPlayer = new MediaPlayer(media);
     

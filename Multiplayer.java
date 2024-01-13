@@ -39,7 +39,7 @@ public class Multiplayer extends Application {
     Text score1 = new Text();
     Text score2 = new Text();
     Stage stage;
-    static String path = "C:\\Users\\magnu\\Dropbox\\MagnusDropbox\\Skole\\DTU\\1.semester\\SnakeProjekt-1\\DOG.mp3"; 
+    static String path = "DOG.mp3"; 
     static Media media = new Media(new File(path).toURI().toString());
     static MediaPlayer mediaPlayer = new MediaPlayer(media);
 
