@@ -46,7 +46,7 @@ public class Multiplayer extends Application {
     public static long speed = 200000000;
     
 
-     public static void main(String[] args) {
+    public static void main(String[] args) {
         launch(args);
     }
 

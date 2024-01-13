@@ -27,7 +27,6 @@ public class MainMenu extends Application{
     public static Leaderbord leaders = new Leaderbord();
     public static Speed setSpeed = new Speed();
     public static GridSize gridSize = new GridSize();
-    // Unødvendig? public static MainMenu menu = new MainMenu();
     public static Multiplayer multi = new Multiplayer();
     public static long speed = 200000000;
     public static boolean isMulti = false;
@@ -84,7 +83,7 @@ public class MainMenu extends Application{
         });
 
 
-        Button leaderbord = new Button("Leaderbord");
+        Button leaderbord = new Button("Leaderboard");
         leaderbord.setFont(font);
         leaderbord.setMinSize(400, 50);
         leaderbord.setOnAction(event -> leaders.start(stage));
