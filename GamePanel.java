@@ -41,7 +41,7 @@ public class GamePanel extends Application {
     Text score = new Text();
     public static Stage stage;
     public int segmentSize = snake.segments.size();
-    public static long speed = 200000000;
+    public static long speed = 100000000;
 
     static String path = "Dog.mp3"; 
     static Media media = new Media(new File(path).toURI().toString());

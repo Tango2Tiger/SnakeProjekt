@@ -29,7 +29,7 @@ public class MainMenu extends Application{
     public static Speed setSpeed = new Speed();
     public static GridSize gridSize = new GridSize();
     public static Multiplayer multi = new Multiplayer();
-    public static long speed = 200000000;
+    public static long speed = 100000000;
     public static boolean isMulti = false;
     public static boolean soundOn = true;
 

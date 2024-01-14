@@ -23,7 +23,7 @@ public class Speed extends Application{
         low.setFont(font);
         low.setMinSize(400, 50);
         low.setOnAction(event -> {
-        MainMenu.speed = 200000000;
+        MainMenu.speed = 150000000;
         try {
             menu.start(stage);
         } catch (Exception e) {
