@@ -38,6 +38,8 @@ public class Leaderbord extends Application{
         Button exit = new Button("Back");
         exit.setFont(Font.font(30));
         exit.setMinSize(100, 25);
+        exit.setLayoutX(10);
+        exit.setLayoutY(720);
         exit.setOnAction(event -> {
             try {
                 menu.start(stage);
@@ -54,7 +56,6 @@ public class Leaderbord extends Application{
         String path = "C:\\Users\\magnu\\Dropbox\\MagnusDropbox\\Skole\\DTU\\1.semester\\SnakeProjekt-1\\ranking.txt";
         File ranking = new File(path);
         Scanner reader = new Scanner(ranking);
-        int counter = 0;
 
         font = Font.font(20);
         
@@ -73,7 +74,7 @@ public class Leaderbord extends Application{
         vBox.setTranslateX(200);
         vBox.setTranslateY(50);
 
-        root.getChildren().addAll(rect, vBox);
+        root.getChildren().addAll(rect, vBox, exit);
         stage.setScene(scene);
         stage.show();
     }
