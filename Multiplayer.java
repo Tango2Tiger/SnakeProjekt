@@ -18,7 +18,7 @@ import javafx.animation.*;
 import java.io.File;
 
 
-
+//Magnus
 public class Multiplayer extends Application {
     public GridPane grid;
     private Rectangle apple;
@@ -89,7 +89,7 @@ public class Multiplayer extends Application {
         animationTimer.start();
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKey);
     }
-
+//Holger
     //The method for creating the game grid
     private void createGrid(){
         for(int row = 0; row<GRID_WIDTH; row++){
@@ -139,6 +139,7 @@ public class Multiplayer extends Application {
         
         }
 
+//Clement
     //Method to move the snakes
     public void move(Snake snake){
         GridPane.setConstraints(snake.segments.get(snake.segments.size()-1), GridPane.getColumnIndex(snake.segments.get(0)), GridPane.getRowIndex(snake.segments.get(0)));
@@ -183,6 +184,7 @@ public class Multiplayer extends Application {
         }
     }
 
+//Jonas
     //Method to crate the apple
     private Rectangle createApple(){
         Rectangle apple = new Rectangle(TILE_SIZE-5, TILE_SIZE-5);
@@ -219,7 +221,7 @@ public class Multiplayer extends Application {
         ateApple = false;
     }
 
-
+//Magnus
     //Putting barriers so the snake cannot go in the opposite way of what it is currently moving.
     private void handleKey(KeyEvent event){
         switch (event.getCode()) {
@@ -317,7 +319,7 @@ public class Multiplayer extends Application {
             eatApple(snake);
         }
     }
-
+//Jonas
     //Method to grow the snakes if they eat the apple
     private void eatApple(Snake snake) {
         snake.score++;

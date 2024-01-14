@@ -11,6 +11,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+//Holger
 public class GridSize extends Application{
     //Refers to the MainMenu
     static MainMenu menu = new MainMenu();

@@ -19,6 +19,7 @@ import javafx.animation.*;
 import java.io.File;
 import java.lang.Math;
 
+//Clement
 public class GamePanel extends Application {
     //We create our snake grid with and set different constants
     public GridPane grid;
@@ -54,7 +55,7 @@ public class GamePanel extends Application {
         launch(args);
     }
 
-
+//Magnus
     // The override method is used from the application class to set up the stage
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -96,6 +97,7 @@ public class GamePanel extends Application {
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKey);
     }
 
+//Jonas
     //Method to create the standard sized grid for the snake
     private void createGrid(){
         for(int row = 0; row<GRID_WIDTH; row++){
@@ -129,7 +131,7 @@ public class GamePanel extends Application {
             grid.add(rect,xrect,yrect);
         }
     }
-
+//Holger
     //Here is the creation of the scene for the gameover scene.
     private void showGameOverScene() {
         Rectangle gameOverOverlay = new Rectangle(800, 600, Color.BLACK);
@@ -205,7 +207,7 @@ public class GamePanel extends Application {
         }
     }
     
-
+//Magnus
     //This method is to move the snake based on its current direction
     public void move(){
         Rectangle head = snake.segments.get(0);
@@ -257,7 +259,7 @@ public class GamePanel extends Application {
         }
     }
 
-
+//Jonas
     //This method is to create the apple the snake is eating
     private Rectangle createApple(){
         Rectangle apple = new Rectangle(TILE_SIZE-5, TILE_SIZE-5);
@@ -287,6 +289,7 @@ public class GamePanel extends Application {
         }
     }
 
+//Clement
     //Method for putting barriers so the snake cannot go in the opposite way of what it is currently moving.
     private void handleKey(KeyEvent event){
         switch (event.getCode()) {
@@ -322,8 +325,6 @@ public class GamePanel extends Application {
     }
 
     
-
-
     //Method for checking collisions, both with the snake itself, but also with the apple.
     private void checkCollision() {
         int headX = GridPane.getColumnIndex(snake.segments.get(0));
@@ -353,7 +354,7 @@ public class GamePanel extends Application {
         }
     }
 
-
+//Jonas
     //Method that is used for when the snake eats the apple, and then for the snake to grow
     private void eatApple() {
         scoreCounter++;

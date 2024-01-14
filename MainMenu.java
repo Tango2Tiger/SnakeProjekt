@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 
 import javafx.application.*;
 
+//Magnus
 public class MainMenu extends Application{
     //The Main menu which contains the initial grid size, speed, leaderboard, the multiplayer option and the mute
     public static int grid_height = 15;

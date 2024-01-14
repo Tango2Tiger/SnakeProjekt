@@ -3,7 +3,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-
+//Jonas
 public class Snake{
     //The creation of the snake with its rectangles, with the direction, size, and tail
     public ArrayList<Rectangle> segments;
@@ -25,7 +25,7 @@ public class Snake{
         segmentSize = segments.size();
         
     }
-
+//Clement
     //Constructor with other color for multiplayer
     public Snake(int x, int y, Color color){
         col = color;
