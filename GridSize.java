@@ -12,22 +12,28 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class GridSize extends Application{
+    //Refers to the MainMenu
     static MainMenu menu = new MainMenu();
     public GridPane grid = new GridPane();
+
+    //Main method to launch the application
     public static void main(String[] args) {
         launch(args);
     }
 
+    //This override method is for the grid size menu
     @Override
     public void start(Stage stage) throws Exception{
+        //Group that contains the UI elements
         Group root = new Group();
         Scene scene = new Scene(root);
         stage.setTitle("Snake");
 
+        //Size of background and text
         Font font = Font.font(20);
-
         Rectangle rect = new Rectangle(800, 600);
 
+        //Text and slider for chosing the width of the grid
         Text widthtxt = new Text();
         widthtxt.setText("Width:");
         widthtxt.setX(10);
@@ -49,7 +55,7 @@ public class GridSize extends Application{
         width.setFill(Color.CORNFLOWERBLUE);
         width.textProperty().bind(widthslider.valueProperty().asString("%.0f"));
         
-
+        //Text and slider for chosing the height of the grid
         Text heighttxt = new Text();
         heighttxt.setText("Height:");
         heighttxt.setX(10);
@@ -70,8 +76,7 @@ public class GridSize extends Application{
         height.setFill(Color.CORNFLOWERBLUE);
         height.textProperty().bind(heightslider.valueProperty().asString("%.0f"));
 
-
-        
+        //A button that confirms the chosen height and width for the grid
         Button done = new Button("Done");
         done.setMinSize(400, 40);
         done.setFont(font);
@@ -85,7 +90,7 @@ public class GridSize extends Application{
         }
         });
         
-
+        //VBox that arranges the height and the width UI elements
         VBox vBox = new VBox(30, heighttxt, heightslider, height, widthtxt, widthslider, width, done);
         vBox.setTranslateX(200);
         vBox.setTranslateY(50);

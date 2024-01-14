@@ -20,22 +20,27 @@ import java.io.File;
 import java.lang.Math;
 
 public class GamePanel extends Application {
+    //We create our snake grid with and set different constants
     public GridPane grid;
     private Rectangle apple;
     public static int GRID_HEIGHT = 17;
     public static int GRID_WIDTH = 17;
     public static int TILE_SIZE = 30;
     public static Snake snake = new Snake((1/2)*GRID_WIDTH, (1/2)*GRID_HEIGHT, Color.LIMEGREEN);
-    //
     public boolean isAlive = true;
+    //We use the animationtimer to create the different frames of the game, so the snake is moving
     MyAnimationTimer animationTimer = new MyAnimationTimer();
     public int scoreCounter;
+    //We create the scorecounter
     Text score = new Text();
     public static Stage stage;
+    //We create the snake segments that is used with the arraylist to update the snakelenght
     public int segmentSize = snake.segments.size();
+    //The speed of the snake
     public static long speed = 200000000;
     ArrayList<String> dirLs = new ArrayList<>();
 
+    //We implemented the music, so we have background music when the game is played
     static String path = "Dog.mp3"; 
     static Media media = new Media(new File(path).toURI().toString());
     static MediaPlayer mediaPlayer = new MediaPlayer(media);
@@ -44,18 +49,22 @@ public class GamePanel extends Application {
     Stage primaryStage;
     Scene scene;
 
+    // Main method to launch the program
      public static void main(String[] args) {
         launch(args);
     }
 
 
+    // The override method is used from the application class to set up the stage
     @Override
     public void start(Stage primaryStage) throws Exception {
+        //This sets the music to start whenever you run the MainMenu class.
         if(MainMenu.soundOn){
             mediaPlayer.setAutoPlay(true);
             mediaPlayer.setVolume(0.1);
         }
         
+        //We create our snake game panel as a stage
         this.primaryStage = primaryStage;
         grid = new GridPane();
         root = new StackPane();
@@ -72,6 +81,7 @@ public class GamePanel extends Application {
         createGrid();
         createSnake();
 
+        //We design the scorecounter and put it in the corner
         score.setTranslateX(scene.getWidth()- GRID_WIDTH*13); // Adjust the X-coordinate as needed
         score.setTranslateY(scene.getHeight()- GRID_HEIGHT*14.5);
         score.setText("Score:" + scoreCounter);
@@ -82,9 +92,11 @@ public class GamePanel extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         animationTimer.start();
+        //We add the keyevent to the primarystage so that we can
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKey);
     }
 
+    //Method to create the standard sized grid for the snake
     private void createGrid(){
         for(int row = 0; row<GRID_WIDTH; row++){
             for(int col = 0; col<GRID_HEIGHT; col++){
@@ -98,11 +110,13 @@ public class GamePanel extends Application {
         spawnApple();
     }
 
+    //This method is used to calculate the size of the tiles
     public void calcTileSize(){
         int maxi = Math.max(GRID_WIDTH, GRID_HEIGHT);
         TILE_SIZE = (int)(Math.floor(650/maxi));
     } 
 
+    //This method is for the creation of the snake
     public void createSnake(){
         ArrayList<Rectangle> l = snake.segments;
         int xrect = 0;
@@ -116,6 +130,7 @@ public class GamePanel extends Application {
         }
     }
 
+    //Here is the creation of the scene for the gameover scene.
     private void showGameOverScene() {
         Rectangle gameOverOverlay = new Rectangle(800, 600, Color.BLACK);
         
@@ -149,6 +164,7 @@ public class GamePanel extends Application {
         }); 
     }
 
+    //Here is the method that handles the keyevents on the showGameOverScene scene.
     private void handleKeys(KeyEvent event) throws Exception{
         if (event.getCode() == KeyCode.ESCAPE && !isAlive){
             GamePanel.speed = 2000000000;
@@ -162,6 +178,7 @@ public class GamePanel extends Application {
         }
     }
 
+    //This is the method to restart the game
     private void restartgame() throws Exception {
         animationTimer.stop();
         grid.getChildren().clear();
@@ -171,6 +188,7 @@ public class GamePanel extends Application {
         newGame.start(primaryStage);
     }
 
+    //This class is used for the animation timer for the game updates
     public class MyAnimationTimer extends AnimationTimer {
         private long lastUpdateTime = 0;
         private final long updateInterval = GamePanel.speed;
@@ -188,6 +206,7 @@ public class GamePanel extends Application {
     }
     
 
+    //This method is to move the snake based on its current direction
     public void move(){
         Rectangle head = snake.segments.get(0);
         
@@ -239,6 +258,7 @@ public class GamePanel extends Application {
     }
 
 
+    //This method is to create the apple the snake is eating
     private Rectangle createApple(){
         Rectangle apple = new Rectangle(TILE_SIZE-5, TILE_SIZE-5);
         apple.setArcHeight(30);
@@ -247,7 +267,7 @@ public class GamePanel extends Application {
         return apple;
     }
 
-
+    //This method is for spawning the apple
     public void spawnApple() {
         Random random = new Random();
         int appleX = random.nextInt(GRID_WIDTH);
@@ -267,7 +287,7 @@ public class GamePanel extends Application {
         }
     }
 
-    //Putting barriers so the snake cannot go in the opposite way of what it is currently moving.
+    //Method for putting barriers so the snake cannot go in the opposite way of what it is currently moving.
     private void handleKey(KeyEvent event){
         switch (event.getCode()) {
             case UP:
@@ -304,6 +324,7 @@ public class GamePanel extends Application {
     
 
 
+    //Method for checking collisions, both with the snake itself, but also with the apple.
     private void checkCollision() {
         int headX = GridPane.getColumnIndex(snake.segments.get(0));
         int headY = GridPane.getRowIndex(snake.segments.get(0));
@@ -314,6 +335,7 @@ public class GamePanel extends Application {
             int x = GridPane.getColumnIndex(position);
             int y = GridPane.getRowIndex(position);
 
+            //This shows the game over scene if the snake collides with itself
             if (headX == x && headY == y) {
                 isAlive = false;
                 animationTimer.stop();
@@ -325,12 +347,14 @@ public class GamePanel extends Application {
         int appleX = GridPane.getColumnIndex(apple);
         int appleY = GridPane.getRowIndex(apple);
 
+        //Snake eats the apple if it collides with it.
         if (headX == appleX && headY == appleY) {
             eatApple();
         }
     }
 
 
+    //Method that is used for when the snake eats the apple, and then for the snake to grow
     private void eatApple() {
         scoreCounter++;
         score.setText("Score:" + scoreCounter);

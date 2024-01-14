@@ -19,17 +19,21 @@ public class Leaderbord extends Application{
     public static void main(String[] args){
         launch(args);
     }
-    
+
+    //Refers to the MainMenu
     MainMenu menu = new MainMenu();
 
+    //This is the Leaderboards override method for the leaderboard menu
     @Override
     public void start(Stage stage) throws FileNotFoundException{
+        //Group to hold all the UI elements
         Group root = new Group();
         Scene scene = new Scene(root);
         Rectangle rect = new Rectangle(600, 800);
         Font font = Font.font(40);
-        Button exit = new Button("Back");
         
+        //Button to come back to the Main menu
+        Button exit = new Button("Back");
         exit.setFont(Font.font(30));
         exit.setMinSize(100, 25);
         exit.setLayoutX(10);
@@ -60,7 +64,7 @@ public class Leaderbord extends Application{
             nameArr.get(nameArr.size()-1).setFill(Color.WHITE);;
         }
 
-
+        //VBox to organize the UI elements
         VBox vBox = new VBox(30, header);
         for(int i=0; i < Math.min(10, nameArr.size()); i++){
             vBox.getChildren().add(nameArr.get(i));
