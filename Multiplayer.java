@@ -5,7 +5,6 @@ import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
@@ -19,7 +18,7 @@ import javafx.animation.*;
 import java.io.File;
 
 
-
+//Magnus
 public class Multiplayer extends Application {
     public GridPane grid;
     private Rectangle apple;
@@ -27,26 +26,27 @@ public class Multiplayer extends Application {
     public static int GRID_HEIGHT = 17;
     public static final int TILE_SIZE = 30;
     public static Snake snake1 = new Snake((int) Math.round((2/3)*GRID_WIDTH), (int) Math.round((1/2)*GRID_HEIGHT), Color.LIMEGREEN);
+    //Adding the second snake
     public static Snake snake2 = new Snake((int) Math.round((1/3)*GRID_WIDTH), (int) Math.round((1/2)*GRID_HEIGHT), Color.AQUAMARINE);
     public boolean isAlive = true;
     public boolean ateApple = false;
     MyAnimationTimer animationTimer = new MyAnimationTimer();
     
     Text score1 = new Text();
+    //Adding another scorecounter
     Text score2 = new Text();
     Stage stage;
     static String path = "DOG.mp3"; 
     static Media media = new Media(new File(path).toURI().toString());
     static MediaPlayer mediaPlayer = new MediaPlayer(media);
-
     public static long speed = 200000000;
-    
 
+    //Main method to launch the multiplayer program
     public static void main(String[] args) {
         launch(args);
     }
 
-
+    //override method to set up the multiplayer game display
     @Override
     public void start(Stage primaryStage) throws Exception {
         mediaPlayer.setAutoPlay(true);
@@ -89,8 +89,8 @@ public class Multiplayer extends Application {
         animationTimer.start();
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKey);
     }
-
-
+//Holger
+    //The method for creating the game grid
     private void createGrid(){
         for(int row = 0; row<GRID_WIDTH; row++){
             for(int col = 0; col<GRID_HEIGHT; col++){
@@ -104,7 +104,7 @@ public class Multiplayer extends Application {
         spawnApple();
     }
 
-
+    //The method for creating the snakes on the grid
     public void createSnake(Snake snake){
         ArrayList<Rectangle> l = snake.segments;
         int xrect = 0;
@@ -118,8 +118,7 @@ public class Multiplayer extends Application {
         }
     }
 
-
-
+    //This class is used for the animation timer for the game updates
     public class MyAnimationTimer extends AnimationTimer {
         private long lastUpdateTime = 0;
         private final long updateInterval = MainMenu.speed; // 0,1 sekund
@@ -140,7 +139,8 @@ public class Multiplayer extends Application {
         
         }
 
-
+//Clement
+    //Method to move the snakes
     public void move(Snake snake){
         GridPane.setConstraints(snake.segments.get(snake.segments.size()-1), GridPane.getColumnIndex(snake.segments.get(0)), GridPane.getRowIndex(snake.segments.get(0)));
         snake.segments.add(1, snake.segments.get(snake.segments.size()-1));
@@ -184,7 +184,8 @@ public class Multiplayer extends Application {
         }
     }
 
-
+//Jonas
+    //Method to crate the apple
     private Rectangle createApple(){
         Rectangle apple = new Rectangle(TILE_SIZE-5, TILE_SIZE-5);
         apple.setArcHeight(30);
@@ -193,7 +194,7 @@ public class Multiplayer extends Application {
         return apple;
     }
 
-
+    //Method to spawn the apple
     public void spawnApple() {
         Random random = new Random();
         int appleX = random.nextInt(GRID_WIDTH);
@@ -220,7 +221,7 @@ public class Multiplayer extends Application {
         ateApple = false;
     }
 
-
+//Magnus
     //Putting barriers so the snake cannot go in the opposite way of what it is currently moving.
     private void handleKey(KeyEvent event){
         switch (event.getCode()) {
@@ -279,9 +280,8 @@ public class Multiplayer extends Application {
         return;
     }
 
-    
 
-
+    //Method to check for collision with the two snakes and with the apple
     private void checkCollision(Snake snake, Snake other) {
         int headX = GridPane.getColumnIndex(snake.segments.get(0));
         int headY = GridPane.getRowIndex(snake.segments.get(0));
@@ -319,8 +319,8 @@ public class Multiplayer extends Application {
             eatApple(snake);
         }
     }
-
-
+//Jonas
+    //Method to grow the snakes if they eat the apple
     private void eatApple(Snake snake) {
         snake.score++;
         snake.scoretxt.setText(snake.playerName + ": " + snake.score);

@@ -7,8 +7,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+//Clement
 public class Speed extends Application{
+    //Refers to the MainMenu
     static MainMenu menu = new MainMenu();
+    //Overrides the method to create its own "Speed" menu
     @Override
     public void start(Stage stage){
         Group root = new Group();
@@ -19,6 +22,7 @@ public class Speed extends Application{
         Rectangle rect = new Rectangle(800, 600);
         Font font = Font.font(40);
 
+        //Button for the speed-setting low
         Button low = new Button("Low");
         low.setFont(font);
         low.setMinSize(400, 50);
@@ -31,6 +35,7 @@ public class Speed extends Application{
         }
         });
 
+        //Button for the speed-setting medium
         Button medium = new Button("Medium");
         medium.setFont(font);
         medium.setMinSize(400, 50);
@@ -43,6 +48,7 @@ public class Speed extends Application{
         }
         });
 
+        //Button for the speed-setting high
         Button high = new Button("High");
         high.setFont(font);
         high.setMinSize(400, 50);
@@ -55,6 +61,7 @@ public class Speed extends Application{
         }
         });
 
+        //VBox to organize the buttons vertically
         VBox vBox = new VBox(50, low, medium, high);
         vBox.setTranslateX(200);
         vBox.setTranslateY(50);
