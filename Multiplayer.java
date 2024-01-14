@@ -14,12 +14,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.animation.*;
-import javafx.event.*;
-import javafx.animation.*;
-import java.beans.EventHandler;
 import java.io.File;
 
 

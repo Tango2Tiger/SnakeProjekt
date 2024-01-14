@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -15,34 +14,35 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.animation.*;
-import javafx.event.*;
-import javafx.animation.*;
-import java.beans.EventHandler;
 import java.io.File;
 import java.lang.Math;
 
 
 
 public class GamePanel extends Application {
+    //We create our snake grid with and set different constants
     public GridPane grid;
     private Rectangle apple;
     public static int GRID_HEIGHT = 17;
     public static int GRID_WIDTH = 17;
     public static int TILE_SIZE = 30;
     public static Snake snake = new Snake((1/2)*GRID_WIDTH, (1/2)*GRID_HEIGHT, Color.LIMEGREEN);
-    //
     public boolean isAlive = true;
     public boolean ateApple = false;
+    //We use the animationtimer to create the different frames of the game, so the snake is moving
     MyAnimationTimer animationTimer = new MyAnimationTimer();
+    //We create the scorecounter
     public int scoreCounter;
     Text score = new Text();
     public static Stage stage;
+    //We create the snake segments that is used with the arraylist to update the snakelenght
     public int segmentSize = snake.segments.size();
+    //The speed of the snake
     public static long speed = 100000000;
 
+    //We implemented the music, so we have background music when the game is played
     static String path = "Dog.mp3"; 
     static Media media = new Media(new File(path).toURI().toString());
     static MediaPlayer mediaPlayer = new MediaPlayer(media);
@@ -61,28 +61,26 @@ public class GamePanel extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        //This sets the music to start whenever you run the MainMenu class.
         if(MainMenu.soundOn){
             mediaPlayer.setAutoPlay(true);
             mediaPlayer.setVolume(0.1);
         }
         
+        //We create our snake game panel as a stage
         this.primaryStage = primaryStage;
         grid = new GridPane();
         root = new StackPane();
         root.getChildren().add(grid);
-
         scene = new Scene(root);
-
         primaryStage.setTitle("SNAKE");
         primaryStage.setResizable(true);
 
-        /* calcTileSize();
-        snake.create((int)(Math.floor(GRID_WIDTH/2)), (int)(Math.floor(GRID_HEIGHT/2)), TILE_SIZE);
-        */
         createGrid();
         createSnake(snake);
 
-        score.setTranslateX(scene.getWidth()- GRID_WIDTH*13); // Adjust the X-coordinate as needed
+        //We design the scorecounter and put it in the corner
+        score.setTranslateX(scene.getWidth()- GRID_WIDTH*13);
         score.setTranslateY(scene.getHeight()- GRID_HEIGHT*14.5);
         score.setText("Score:" + scoreCounter);
         score.setFont(Font.font(25));
@@ -92,11 +90,11 @@ public class GamePanel extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         animationTimer.start();
+        //We add the keyevent to the primarystage so that we can
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKey);
     }
 
-
-
+    //Creating the grid for the snake
     private void createGrid(){
         for(int row = 0; row<GRID_WIDTH; row++){
             for(int col = 0; col<GRID_HEIGHT; col++){
@@ -130,6 +128,7 @@ public class GamePanel extends Application {
     }
 
     private void showGameOverScene() {
+        //Here we create the scene for the gameover scene.
         Rectangle gameOverOverlay = new Rectangle(800, 600, Color.BLACK);
         
         Text ys = new Text("You're score was: " + scoreCounter);
@@ -193,7 +192,7 @@ public class GamePanel extends Application {
         public void handle(long now) {
             
             if(now - lastUpdateTime >= updateInterval) {
-                // Her skal vi opdateret slangen så den rykker.
+                // Here we update the snake, so it moves forward
                 move(snake);
                 checkCollision();
                 // Update the last update time

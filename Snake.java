@@ -10,8 +10,11 @@ public class Snake{
     public String direction;
     public Rectangle tail;
     public  int segmentSize;
+    
+    //This is used in multiplayer to create two different scores
     public int score = 0;
     public Text scoretxt = new Text();
+
     public Color col = Color.LIMEGREEN;
 
     public Snake(){
