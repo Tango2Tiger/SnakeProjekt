@@ -1,24 +1,17 @@
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.Media;
-import javafx.scene.media.MediaView;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-
 import java.io.File;
-import java.time.Duration;
+import java.io.FileNotFoundException;
 
-import javax.print.DocFlavor.URL;
 import javafx.application.*;
 
 public class MainMenu extends Application{
@@ -90,17 +83,28 @@ public class MainMenu extends Application{
         Button leaderbord = new Button("Leaderboard");
         leaderbord.setFont(font);
         leaderbord.setMinSize(400, 50);
-        leaderbord.setOnAction(event -> leaders.start(stage));
+        leaderbord.setOnAction(event -> {
+            Leaderbord leaders = new Leaderbord();
+            try {
+                leaders.start(stage);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
 
         Button speedbtn = new Button("Speed");
         speedbtn.setMinSize(400, 50);
         speedbtn.setFont(font);
-        speedbtn.setOnAction(event -> setSpeed.start(stage));
+        speedbtn.setOnAction(event -> {
+            Speed setSpeed = new Speed();
+            setSpeed.start(stage);
+        });
 
         Button setGrid = new Button("Grid Size");
         setGrid.setMinSize(400, 50);
         setGrid.setFont(font);
         setGrid.setOnAction(event -> {
+            GridSize gridSize = new GridSize();
             try {
                 gridSize.start(stage);
             } catch (Exception e) {
@@ -146,7 +150,7 @@ public class MainMenu extends Application{
 
         VBox vBox = new VBox(50, play, leaderbord, speedbtn, setGrid, multiplayer, mute);
         vBox.setTranslateX(200);
-        vBox.setTranslateY(50);
+        vBox.setTranslateY(30);
 
         VBox soundBox = new VBox(mute);
         soundBox.setTranslateX(20);

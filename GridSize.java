@@ -1,14 +1,7 @@
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -17,9 +10,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Pair;
-import javafx.util.converter.IntegerStringConverter;
-import javafx.util.converter.NumberStringConverter;
 
 public class GridSize extends Application{
     static MainMenu menu = new MainMenu();
@@ -45,7 +35,7 @@ public class GridSize extends Application{
         widthtxt.setFont(Font.font("Roboto",30));
         widthtxt.setFill(Color.CORNFLOWERBLUE);
 
-        Slider widthslider = new Slider(5, 50, 17);
+        Slider widthslider = new Slider(5, 50, MainMenu.grid_width);
         widthslider.setShowTickLabels(true);
         widthslider.setShowTickMarks(true);
         widthslider.setMajorTickUnit(5);
@@ -67,7 +57,7 @@ public class GridSize extends Application{
         heighttxt.setFont(Font.font("Roboto",30));
         heighttxt.setFill(Color.CORNFLOWERBLUE);
 
-        Slider heightslider = new Slider(5, 50, 17);
+        Slider heightslider = new Slider(5, 50, MainMenu.grid_height);
         heightslider.setShowTickLabels(true);
         heightslider.setShowTickMarks(true);
         heightslider.setMajorTickUnit(5);
