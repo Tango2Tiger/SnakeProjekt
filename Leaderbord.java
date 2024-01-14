@@ -53,7 +53,7 @@ public class Leaderbord extends Application{
         header.setFont(font);
         stage.setTitle("Snake");
 
-        String path = "C:\\Users\\magnu\\Dropbox\\MagnusDropbox\\Skole\\DTU\\1.semester\\SnakeProjekt-1\\ranking.txt";
+        String path = "ranking.txt";
         File ranking = new File(path);
         Scanner reader = new Scanner(ranking);
 
@@ -65,6 +65,7 @@ public class Leaderbord extends Application{
             nameArr.get(nameArr.size()-1).setFont(font);
             nameArr.get(nameArr.size()-1).setFill(Color.WHITE);;
         }
+        reader.close();
 
 
         VBox vBox = new VBox(30, header);
