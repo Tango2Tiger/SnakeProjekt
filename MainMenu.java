@@ -13,6 +13,7 @@ import java.io.File;
 import javafx.application.*;
 
 public class MainMenu extends Application{
+    //The Main menu which contains the initial grid size, speed, leaderboard, the multiplayer option and the mute
     public static int grid_height = 15;
     public static int grid_width = 15;
     public static GamePanel game = new GamePanel();
@@ -24,20 +25,22 @@ public class MainMenu extends Application{
     public static boolean isMulti = false;
     public static boolean soundOn = true;
 
+    //The background music
     static String path = "Wii.mp3"; 
     static Media media = new Media(new File(path).toURI().toString());
     static MediaPlayer mediaPlayer = new MediaPlayer(media);
     
-        
+    //Main method to launch the program
     public static void main(String[] args) {
         mediaPlayer.setAutoPlay(true);
         mediaPlayer.setVolume(0.2);
         launch(args);
     }
 
-
+    //Override method to set the MainMenu menu up 
     @Override
     public void start(Stage stage) throws Exception{
+        //Group to contain the UI elements
         Group root = new Group();
         Scene scene = new Scene(root);
         
@@ -46,9 +49,11 @@ public class MainMenu extends Application{
         Rectangle rect = new Rectangle(800, 600);
         Font font = Font.font(30);
         
+        //Our snake icon, which shows when running the program
         Image icon = new Image(getClass().getResourceAsStream("snake.png"));
         stage.getIcons().add(icon);
 
+        //Button for starting the game
         Button play = new Button("Play");
         play.setFont(font);
         play.setMinSize(400, 50);
@@ -77,17 +82,19 @@ public class MainMenu extends Application{
             }
         });
 
-
+        //The leaderboard button
         Button leaderbord = new Button("Leaderboard");
         leaderbord.setFont(font);
         leaderbord.setMinSize(400, 50);
         leaderbord.setOnAction(event -> leaders.start(stage));
 
+        //The speed buttons
         Button speedbtn = new Button("Speed");
         speedbtn.setMinSize(400, 50);
         speedbtn.setFont(font);
         speedbtn.setOnAction(event -> setSpeed.start(stage));
 
+        //The grid size button
         Button setGrid = new Button("Grid Size");
         setGrid.setMinSize(400, 50);
         setGrid.setFont(font);
@@ -99,17 +106,13 @@ public class MainMenu extends Application{
             }
         });
 
-        
+        //Mute button, to turn off the music 
         Image on = new Image(getClass().getResourceAsStream("soundon.png"));
         Image off = new Image(getClass().getResourceAsStream("soundoff.png"));
         ImageView soundon = new ImageView(on);
         ImageView soundoff = new ImageView(off);
-
         Button mute = new Button("",soundon);
-
-
         mute.setFont(font);
-        
         mute.setMinSize(30, 30);
         mute.setOnAction(event -> {
             soundOn = !soundOn;
@@ -122,6 +125,7 @@ public class MainMenu extends Application{
             }
         });
 
+        //Multiplayer button, to enable or disable multiplayer
         Button multiplayer = new Button("Multiplayer: OFF");
         multiplayer.setFont(font);
         multiplayer.setMinSize(400, 50);
@@ -135,10 +139,12 @@ public class MainMenu extends Application{
         });
 
 
+        //VBox to organize all the UI elements
         VBox vBox = new VBox(50, play, leaderbord, speedbtn, setGrid, multiplayer, mute);
         vBox.setTranslateX(200);
         vBox.setTranslateY(50);
 
+        //VBox to organize sound UI-elements
         VBox soundBox = new VBox(mute);
         soundBox.setTranslateX(20);
         soundBox.setTranslateY(500);

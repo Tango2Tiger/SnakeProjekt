@@ -8,11 +8,13 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class Leaderbord extends Application{
+    //Refers to the MainMenu
     MainMenu menu = new MainMenu();
 
-
+    //This is the Leaderboards override method for the leaderboard menu
     @Override
     public void start(Stage stage){
+        //Group to hold all the UI elements
         Group root = new Group();
         Scene scene = new Scene(root);
         
@@ -21,7 +23,7 @@ public class Leaderbord extends Application{
         Rectangle rect = new Rectangle(800, 600);
         /* Font font = Font.font(40); */
 
-
+        //Button to come back to the Main menu
         Button exit = new Button("Back");
         exit.setFont(Font.font(30));
         exit.setMinSize(100, 25);
@@ -33,9 +35,8 @@ public class Leaderbord extends Application{
             }
         });
 
+        //VBox to organize UI elements
         VBox vBox = new VBox(exit);
-
-        
         vBox.setTranslateX(10);
         vBox.setTranslateY(10);
         root.getChildren().addAll(rect, vBox);

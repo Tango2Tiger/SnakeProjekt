@@ -9,6 +9,7 @@ public class Goglerifx extends Application{
         launch(args);
     }
 
+    //Skal slettes
     @Override
     public void start(Stage primaryStage){
         primaryStage.setTitle("Gøgleri");
