@@ -93,8 +93,8 @@ public class Multiplayer extends Application {
 
 
     private void createGrid(){
-        for(int row = 0; row<GRID_HEIGHT; row++){
-            for(int col = 0; col<GRID_WIDTH; col++){
+        for(int row = 0; row<GRID_WIDTH; row++){
+            for(int col = 0; col<GRID_HEIGHT; col++){
                 Rectangle pane = new Rectangle(TILE_SIZE, TILE_SIZE);
                 pane.setFill(Color.WHITESMOKE);
                 pane.setStroke(Color.BLACK);

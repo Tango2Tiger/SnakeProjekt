@@ -23,12 +23,6 @@ import javafx.application.*;
 public class MainMenu extends Application{
     public static int grid_height = 15;
     public static int grid_width = 15;
-    public static GamePanel game = new GamePanel();
-    public static Leaderbord leaders = new Leaderbord();
-    public static Speed setSpeed = new Speed();
-    public static GridSize gridSize = new GridSize();
-    // Unødvendig? public static MainMenu menu = new MainMenu();
-    public static Multiplayer multi = new Multiplayer();
     public static long speed = 200000000;
     public static boolean isMulti = false;
 
@@ -89,17 +83,24 @@ public class MainMenu extends Application{
         Button leaderbord = new Button("Leaderbord");
         leaderbord.setFont(font);
         leaderbord.setMinSize(400, 50);
-        leaderbord.setOnAction(event -> leaders.start(stage));
+        leaderbord.setOnAction(event -> {
+            Leaderbord leaders = new Leaderbord();
+            leaders.start(stage);
+        });
 
         Button speedbtn = new Button("Speed");
         speedbtn.setMinSize(400, 50);
         speedbtn.setFont(font);
-        speedbtn.setOnAction(event -> setSpeed.start(stage));
+        speedbtn.setOnAction(event -> {
+            Speed setSpeed = new Speed();
+            setSpeed.start(stage);
+        });
 
         Button setGrid = new Button("Grid Size");
         setGrid.setMinSize(400, 50);
         setGrid.setFont(font);
         setGrid.setOnAction(event -> {
+            GridSize gridSize = new GridSize();
             try {
                 gridSize.start(stage);
             } catch (Exception e) {
@@ -123,7 +124,7 @@ public class MainMenu extends Application{
 
         VBox vBox = new VBox(50, play, leaderbord, speedbtn, setGrid, multiplayer);
         vBox.setTranslateX(200);
-        vBox.setTranslateY(50);
+        vBox.setTranslateY(30);
         root.getChildren().addAll(rect, vBox);
         stage.setScene(scene);
         stage.show();

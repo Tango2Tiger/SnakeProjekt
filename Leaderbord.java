@@ -19,19 +19,9 @@ public class Leaderbord extends Application{
         Font font = Font.font(40);
 
 
-        Button high = new Button("High");
-        high.setFont(font);
-        high.setMinSize(400, 50);
-        high.setOnAction(event -> {
-        MainMenu.speed = 100000000;
-        try {
-            /* menu.start(stage); */
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        });
 
-        VBox vBox = new VBox(50, high);
+
+        VBox vBox = new VBox(50);
         vBox.setTranslateX(200);
         vBox.setTranslateY(50);
 

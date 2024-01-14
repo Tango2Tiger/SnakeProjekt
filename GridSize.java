@@ -45,7 +45,7 @@ public class GridSize extends Application{
         widthtxt.setFont(Font.font("Roboto",30));
         widthtxt.setFill(Color.CORNFLOWERBLUE);
 
-        Slider widthslider = new Slider(5, 50, 17);
+        Slider widthslider = new Slider(5, 50, MainMenu.grid_width);
         widthslider.setShowTickLabels(true);
         widthslider.setShowTickMarks(true);
         widthslider.setMajorTickUnit(5);
@@ -67,7 +67,7 @@ public class GridSize extends Application{
         heighttxt.setFont(Font.font("Roboto",30));
         heighttxt.setFill(Color.CORNFLOWERBLUE);
 
-        Slider heightslider = new Slider(5, 50, 17);
+        Slider heightslider = new Slider(5, 50, MainMenu.grid_height);
         heightslider.setShowTickLabels(true);
         heightslider.setShowTickMarks(true);
         heightslider.setMajorTickUnit(5);
