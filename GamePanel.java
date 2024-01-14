@@ -61,8 +61,11 @@ public class GamePanel extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        mediaPlayer.setAutoPlay(true);
-        mediaPlayer.setVolume(0.1);
+        if(MainMenu.soundOn){
+            mediaPlayer.setAutoPlay(true);
+            mediaPlayer.setVolume(0.1);
+        }
+        
         this.primaryStage = primaryStage;
         grid = new GridPane();
         root = new StackPane();
@@ -146,6 +149,7 @@ public class GamePanel extends Application {
         VBox gameOverContent = new VBox(50, go, ys, pa, mm);
         gameOverContent.setSpacing(30);
         gameOverContent.setAlignment(Pos.CENTER);
+        mediaPlayer.pause();
         root.getChildren().addAll(gameOverOverlay, gameOverContent);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -165,6 +169,7 @@ public class GamePanel extends Application {
             restartgame();
             menu.start(primaryStage);
         } else if(event.getCode() == KeyCode.ENTER && !isAlive){
+            mediaPlayer.play();
             restartgame();
         } else{
             return;
