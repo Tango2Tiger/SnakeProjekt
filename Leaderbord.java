@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import javafx.application.Application;
@@ -29,8 +30,6 @@ public class Leaderbord extends Application{
     public void start(Stage stage) throws FileNotFoundException{
         Group root = new Group();
         Scene scene = new Scene(root);
-        
-       
 
         Rectangle rect = new Rectangle(600, 800);
         Font font = Font.font(40);
@@ -59,17 +58,29 @@ public class Leaderbord extends Application{
 
         font = Font.font(20);
         
+        ArrayList<Integer> scores = new ArrayList<>();
         ArrayList<Text> nameArr = new ArrayList<>();
+               
+        
         while (reader.hasNextLine()) {
-            nameArr.add(new Text(reader.nextLine()));
+            scores.add(reader.nextInt());
+            nameArr.add(new Text(reader.next()));
             nameArr.get(nameArr.size()-1).setFont(font);
             nameArr.get(nameArr.size()-1).setFill(Color.WHITE);;
         }
 
+        int[] scoreArr = new int[scores.size()];
+        Arrays.sort(scoreArr);
+        int[] scoreInd = new int[scoreArr.length];
+        for(int i=0; i< scoreInd.length; i++){
+            scoreInd[i] = scores.indexOf(scoreArr[i]); 
+        }
+        
+
 
         VBox vBox = new VBox(30, header);
         for(int i=0; i < Math.min(10, nameArr.size()); i++){
-            vBox.getChildren().add(nameArr.get(i));
+            vBox.getChildren().add(new Text(scores.get(scoreInd[i]) + " " + nameArr.get(scoreInd[i])));
         }
         vBox.setTranslateX(200);
         vBox.setTranslateY(50);

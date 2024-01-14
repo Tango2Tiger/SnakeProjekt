@@ -1,11 +1,19 @@
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.Optional;
+
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
@@ -18,6 +26,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.animation.*;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.Math;
 
 
@@ -141,13 +152,36 @@ public class GamePanel extends Application {
         Text mm = new Text("Press ESC to go back to the main menu");
         mm.setFill(Color.WHITE);
 
-        VBox gameOverContent = new VBox(50, go, ys, pa, mm);
+        TextField txt = new TextField("Your Name");
+        String path = "ranking.txt";
+        File file = new File(path);
+
+        Button addTxt = new Button("Enter");
+        addTxt.setFont(Font.font(30));
+        addTxt.setOnAction(event -> {
+            try {
+                FileWriter writer = new FileWriter(file, true);
+                writer.write(scoreCounter);
+                writer.write(" " + txt.getText() + "\n");
+                writer.flush();
+                writer.close();
+                txt.setText("");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+        VBox gameOverContent = new VBox(50, txt, addTxt, go, ys, pa, mm);
         gameOverContent.setSpacing(30);
         gameOverContent.setAlignment(Pos.CENTER);
         mediaPlayer.pause();
+
         root.getChildren().addAll(gameOverOverlay, gameOverContent);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+
         scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             try {
                 handleKeys(event);
@@ -156,6 +190,8 @@ public class GamePanel extends Application {
             }
         }); 
     }
+
+ 
 
     private void handleKeys(KeyEvent event) throws Exception{
         if (event.getCode() == KeyCode.ESCAPE && !isAlive){
