@@ -25,7 +25,6 @@ public class Snake{
         segmentSize = segments.size();
         
     }
-//Clement
     //Constructor with other color for multiplayer
     public Snake(int x, int y, Color color){
         col = color;

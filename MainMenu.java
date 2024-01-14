@@ -11,7 +11,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileNotFoundException;
-
 import javafx.application.*;
 
 //Magnus

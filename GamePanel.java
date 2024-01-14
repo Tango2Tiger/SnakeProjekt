@@ -324,7 +324,7 @@ public class GamePanel extends Application {
         return;
     }
 
-    
+//Jonas
     //Method for checking collisions, both with the snake itself, but also with the apple.
     private void checkCollision() {
         int headX = GridPane.getColumnIndex(snake.segments.get(0));
@@ -354,7 +354,6 @@ public class GamePanel extends Application {
         }
     }
 
-//Jonas
     //Method that is used for when the snake eats the apple, and then for the snake to grow
     private void eatApple() {
         scoreCounter++;

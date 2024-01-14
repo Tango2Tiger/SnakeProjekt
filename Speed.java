@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-//Magnus & Holger
+//Clement
 public class Speed extends Application{
     //Refers to the MainMenu
     static MainMenu menu = new MainMenu();
