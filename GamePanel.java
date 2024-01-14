@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -19,8 +18,6 @@ import javafx.stage.Stage;
 import javafx.animation.*;
 import java.io.File;
 import java.lang.Math;
-
-
 
 public class GamePanel extends Application {
     public GridPane grid;
@@ -46,8 +43,6 @@ public class GamePanel extends Application {
     MainMenu menu = new MainMenu();
     Stage primaryStage;
     Scene scene;
-    
-    
 
      public static void main(String[] args) {
         launch(args);
@@ -90,8 +85,6 @@ public class GamePanel extends Application {
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKey);
     }
 
-
-
     private void createGrid(){
         for(int row = 0; row<GRID_WIDTH; row++){
             for(int col = 0; col<GRID_HEIGHT; col++){
@@ -109,7 +102,6 @@ public class GamePanel extends Application {
         int maxi = Math.max(GRID_WIDTH, GRID_HEIGHT);
         TILE_SIZE = (int)(Math.floor(650/maxi));
     } 
-
 
     public void createSnake(){
         ArrayList<Rectangle> l = snake.segments;

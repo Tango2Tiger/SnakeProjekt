@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -13,8 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
+
 
 public class Leaderbord extends Application{
 
@@ -24,18 +22,14 @@ public class Leaderbord extends Application{
     
     MainMenu menu = new MainMenu();
 
-
     @Override
     public void start(Stage stage) throws FileNotFoundException{
         Group root = new Group();
         Scene scene = new Scene(root);
-        
-       
-
         Rectangle rect = new Rectangle(600, 800);
         Font font = Font.font(40);
-
         Button exit = new Button("Back");
+        
         exit.setFont(Font.font(30));
         exit.setMinSize(100, 25);
         exit.setLayoutX(10);
