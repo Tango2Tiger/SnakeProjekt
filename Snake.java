@@ -13,6 +13,7 @@ public class Snake{
     public int score = 0;
     public Text scoretxt = new Text();
     public Color col = Color.LIMEGREEN;
+    public String playerName = "";
 
     public Snake(int x, int y, Color color){
         col = color;

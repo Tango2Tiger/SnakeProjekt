@@ -14,12 +14,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.animation.*;
-import javafx.event.*;
-import javafx.animation.*;
-import java.beans.EventHandler;
 import java.io.File;
 
 
@@ -55,6 +51,10 @@ public class Multiplayer extends Application {
     public void start(Stage primaryStage) throws Exception {
         mediaPlayer.setAutoPlay(true);
         mediaPlayer.setVolume(0.1);
+
+        snake1.playerName = "Player 1";
+        snake2.playerName = "Player 2";
+
         grid = new GridPane();
         stage = primaryStage;
         
@@ -68,17 +68,17 @@ public class Multiplayer extends Application {
         createSnake(snake1);
         createSnake(snake2);
         
-        snake1.scoretxt.setText("Score:" + snake1.score);
+        snake1.scoretxt.setText(snake1.playerName + ": " + snake1.score);
         snake1.scoretxt.setX(10);
         snake1.scoretxt.setY(25);
         snake1.scoretxt.setFont(Font.font("Roboto",30));
-        snake1.scoretxt.setFill(Color.CORNFLOWERBLUE);
+        snake1.scoretxt.setFill(Color.LIMEGREEN);
 
-        snake2.scoretxt.setText("Score:" + snake2.score);
-        snake2.scoretxt.setX(140);
+        snake2.scoretxt.setText(snake2.playerName + ": " + snake2.score);
+        snake2.scoretxt.setX(340);
         snake2.scoretxt.setY(25);
         snake2.scoretxt.setFont(Font.font("Roboto",30));
-        snake2.scoretxt.setFill(Color.CORNFLOWERBLUE);
+        snake2.scoretxt.setFill(Color.RED);
         
         root.getChildren().add(grid);
         root.getChildren().addAll(snake1.scoretxt, snake2.scoretxt);
@@ -87,7 +87,6 @@ public class Multiplayer extends Application {
         primaryStage.show();
         
         animationTimer.start();
-
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKey);
     }
 
@@ -224,38 +223,60 @@ public class Multiplayer extends Application {
 
     //Putting barriers so the snake cannot go in the opposite way of what it is currently moving.
     private void handleKey(KeyEvent event){
-        if(event.getCode() == KeyCode.UP && !snake1.direction.equals("DOWN")){
-            snake1.direction = "UP";
-            
-        } else if(event.getCode() == KeyCode.DOWN && !snake1.direction.equals("UP")){
-            snake1.direction = "DOWN";
-            
-        } else if(event.getCode() == KeyCode.RIGHT && !snake1.direction.equals("LEFT")){
-            snake1.direction = "RIGHT";
-            
-        } else if(event.getCode() == KeyCode.LEFT && !snake1.direction.equals("RIGHT")){
-            snake1.direction = "LEFT";
-            
-        } /* else{
-            return;
-        } */
-        
+        switch (event.getCode()) {
+            case UP:
+                if(!snake1.direction.equals("DOWN")){
+                    snake1.direction = "UP";
+                }
+                break;
 
-        if(event.getCode() == KeyCode.W && !snake2.direction.equals("DOWN")){
-            snake2.direction = "UP";
-            
-        } else if(event.getCode() == KeyCode.S && !snake2.direction.equals("UP")){
-            snake2.direction = "DOWN";
-            
-        } else if(event.getCode() == KeyCode.D && !snake2.direction.equals("LEFT")){
-            snake2.direction = "RIGHT";
-            
-        } else if(event.getCode() == KeyCode.A && !snake2.direction.equals("RIGHT")){
-            snake2.direction = "LEFT";
-            
-        } else{
-            return;
-        }
+            case DOWN:
+                if(!snake1.direction.equals("UP")){
+                    snake1.direction = "DOWN";
+                }
+                break;
+
+            case LEFT:
+                if(!snake1.direction.equals("RIGHT")){
+                    snake1.direction = "LEFT";
+                }
+                break;
+
+            case RIGHT:
+                if(!snake1.direction.equals("LEFT")){
+                    snake1.direction = "RIGHT";
+                }
+                break;
+                
+            case W:
+                if(!snake2.direction.equals("DOWN")){
+                    snake2.direction = "UP";
+                }
+                break;
+
+            case S:
+                if(!snake2.direction.equals("UP")){
+                    snake2.direction = "DOWN";
+                }
+                break;
+
+            case A:
+                if(!snake2.direction.equals("RIGHT")){
+                    snake2.direction = "LEFT";
+                }
+                break;
+
+            case D:
+                if(!snake2.direction.equals("LEFT")){
+                    snake2.direction = "RIGHT";
+                }
+                break;
+                
+        
+            default:
+                break;
+        } 
+        return;
     }
 
     
@@ -302,7 +323,7 @@ public class Multiplayer extends Application {
 
     private void eatApple(Snake snake) {
         snake.score++;
-        snake.scoretxt.setText("Score:" + snake.score);
+        snake.scoretxt.setText(snake.playerName + ": " + snake.score);
 
         grid.getChildren().remove(apple); // Remove apple from the grid
         Rectangle body = new Rectangle(TILE_SIZE, TILE_SIZE);
