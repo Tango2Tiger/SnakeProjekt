@@ -36,8 +36,10 @@ public class Multiplayer extends Application {
     //Adding another scorecounter
     Text score2 = new Text();
     Stage stage;
-    static String path = "DOG.mp3"; 
-    static Media media = new Media(new File(path).toURI().toString());
+
+    static Media media = new Media(MainMenu.class.getResource("/resources/Dog.mp3").toString());
+    //static String path = "DOG.mp3"; 
+    //static Media media = new Media(new File(path).toURI().toString());
     static MediaPlayer mediaPlayer = new MediaPlayer(media);
     public static long speed = 200000000;
 

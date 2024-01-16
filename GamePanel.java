@@ -42,9 +42,9 @@ public class GamePanel extends Application {
     ArrayList<String> dirLs = new ArrayList<>();
 
     //We implemented the music, so we have background music when the game is played
-    static String path = "Dog.mp3"; 
-    static Media media = new Media(new File(path).toURI().toString());
+    static Media media = new Media(MainMenu.class.getResource("/resources/Dog.mp3").toString());
     static MediaPlayer mediaPlayer = new MediaPlayer(media);
+
     private StackPane root;
     MainMenu menu = new MainMenu();
     Stage primaryStage;

@@ -26,10 +26,10 @@ public class MainMenu extends Application{
     public static long speed = 100000000;
     public static boolean isMulti = false;
     public static boolean soundOn = true;
-
+    
     //The background music
-    static String path = "Wii.mp3"; 
-    static Media media = new Media(new File(path).toURI().toString());
+    
+    static Media media = new Media(MainMenu.class.getResource("/resources/Wii.mp3").toString());
     static MediaPlayer mediaPlayer = new MediaPlayer(media);
     
     //Main method to launch the application
@@ -52,7 +52,7 @@ public class MainMenu extends Application{
         Font font = Font.font(30);
         
         //Our snake icon, which shows when running the program
-        Image icon = new Image(getClass().getResourceAsStream("snake.png"));
+        Image icon = new Image(getClass().getResourceAsStream("/resources/snake.png"));
         stage.getIcons().add(icon);
 
         //Button for starting the game
@@ -118,10 +118,10 @@ public class MainMenu extends Application{
                 e.printStackTrace();
             }
         });
-
+        
         //Mute button, to turn off the music
-        Image on = new Image(getClass().getResourceAsStream("soundon.png"));
-        Image off = new Image(getClass().getResourceAsStream("soundoff.png"));
+        Image on = new Image(getClass().getResourceAsStream("/resources/soundon.png"));
+        Image off = new Image(getClass().getResourceAsStream("/resources/soundoff.png"));
         ImageView soundon = new ImageView(on);
         ImageView soundoff = new ImageView(off);
 

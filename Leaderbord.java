@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javafx.application.Application;
@@ -12,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 
 //Clement
 public class Leaderbord extends Application{
@@ -45,16 +47,20 @@ public class Leaderbord extends Application{
                 e.printStackTrace();
             }
         });
-
+        
         Text header = new Text("Leaderboard");
         header.setFill(Color.WHITE);
         header.setFont(font);
         stage.setTitle("Snake");
 
-        String path = "ranking.txt";
-        File ranking = new File(path);
-        Scanner reader = new Scanner(ranking);
 
+        InputStream inputStream = getClass().getResourceAsStream("/resources/ranking.txt");
+        Scanner reader = new Scanner(inputStream);
+
+        //File ranking = new File(getClass().getResourceAsStream("/resources/ranking.txt").toString());
+        //Scanner reader = new Scanner(ranking);
+
+        
         font = Font.font(20);
         
         ArrayList<Text> nameArr = new ArrayList<>();
